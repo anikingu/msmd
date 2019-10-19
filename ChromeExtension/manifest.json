@@ -1,10 +1,10 @@
 {
-    "manifeset_version": 2,
+    "manifest_version": 2,
     "name": "MonkeySeeMonkeyDo",
-    "version": 0.1,
+    "version": "0.1",
     "content_scripts": [
         {
-            "matches": ["<any_url>"],
+            "matches": ["<all_urls>"],
             "js": ["content.js"]
         }
     ],
