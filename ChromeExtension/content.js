@@ -1,8 +1,9 @@
 // content.js
 
 chrome.runtime.onMessage.addListener(
-    function() {
-        // Something
+    function(request, sender, sendResponse) {
+        // Start by logging message
+        console.log(request.message);
     }
 );
 
