@@ -13,6 +13,7 @@ window.onload = function() {
 
 var Recorder = (function() {
     let isRecording,
+    currentRecording,
     recordingList = [];
 
     function init() {
@@ -20,13 +21,26 @@ var Recorder = (function() {
         return this;
     };
 
+    function newRecording() {
+        // Add a new recording to the recording list. Set this new recording to be the current recording
+        currentRecording = new Recording();
+        recordingList.push(currentRecording);
+    };
+
+    function getCurrentRecording() {
+        return currentRecording;
+    }
+
     return {
-        init: init
+        init: init,
+        newRecording: newRecording,
+        getCurrentRecording: getCurrentRecording
     };
 });
 
 var Recording = (function() {
 
+    console.log("Recording created");
     let eventList = [];
 
     function addEvent(event) {
