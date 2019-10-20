@@ -11,6 +11,9 @@ window.onload = function () {
                 case "startNewRecording":
                     recorder.newRecording();
                     break;
+                case "saveCurrentRecording":
+                    recorder.saveCurrentRecording();
+                    break;
                 case "showCurrentRecording":
                     console.log(recorder.getCurrentRecording().getEventList());
                     break;
@@ -30,12 +33,11 @@ window.onload = function () {
 var Recorder = (function () {
     let isRecording,
         currentRecording,
-        recordingList = [];
+        savedRecordings = [];
 
     function init() {
         console.log("Recorder created");
         currentRecording = new Recording();
-        recordingList.push(currentRecording);
         $("a").on("click", addEvent);
     };
 
@@ -48,18 +50,21 @@ var Recorder = (function () {
     }
 
     function newRecording() {
-        // Add a new recording to the recording list. Set this new recording to be the current recording
+        // Reset currentRecording
         currentRecording = new Recording();
-        recordingList.push(currentRecording);
         console.log("New recording created");
     };
+
+    function saveCurrentRecording() {
+        savedRecordings.push(currentRecording)
+    }
 
     function getCurrentRecording() {
         return currentRecording;
     };
 
     function getAllRecordings() {
-        return recordingList;
+        return savedRecordings;
     };
 
     function replayCurrentRecording() {
@@ -79,6 +84,7 @@ var Recorder = (function () {
     return {
         init: init,
         newRecording: newRecording,
+        saveCurrentRecording: saveCurrentRecording,
         getCurrentRecording: getCurrentRecording,
         getAllRecordings: getAllRecordings,
         replayCurrentRecording: replayCurrentRecording
