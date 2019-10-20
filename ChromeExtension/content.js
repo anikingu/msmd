@@ -15,7 +15,7 @@ window.onload = function () {
                     recorder.saveCurrentRecording();
                     break;
                 case "showCurrentRecording":
-                    console.log(recorder.getCurrentRecording().getEventList());
+                    console.log(recorder.getCurrentRecording());
                     break;
                 case "showAllRecordings":
                     console.log(recorder.getAllRecordings());
@@ -33,7 +33,7 @@ window.onload = function () {
 var Recorder = (function () {
     let isRecording,
         currentRecording,
-        savedRecordings = [];
+        savedRecordings = {};
 
     function init() {
         console.log("Recorder created");
@@ -56,7 +56,7 @@ var Recorder = (function () {
     };
 
     function saveCurrentRecording() {
-        savedRecordings.push(currentRecording)
+        savedRecordings[currentRecording.meta.hash] = currentRecording;
     }
 
     function getCurrentRecording() {
@@ -94,7 +94,15 @@ var Recorder = (function () {
 var Recording = (function () {
 
     console.log("Recording created");
-    let eventList = [];
+    let eventList = [],
+    meta = {
+        hash: "Recording_" + Math.random().toString(36).substr(2),
+        createdDate: new Date()
+    };
+
+    function getMeta() {
+        return meta;
+    }
 
     function addEvent(event) {
         eventList.push(event);
@@ -105,6 +113,7 @@ var Recording = (function () {
     };
 
     return {
+        meta: getMeta(),
         addEvent: addEvent,
         getEventList: getEventList
     };
