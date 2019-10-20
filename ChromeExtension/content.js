@@ -33,7 +33,10 @@ window.onload = function () {
 var Recorder = (function () {
     let isRecording,
         currentRecording,
-        savedRecordings = {};
+        savedRecordings = {},
+        settings = {
+            eventInterval: 1000
+        };
 
     function init() {
         console.log("Recorder created");
@@ -69,16 +72,21 @@ var Recorder = (function () {
 
     function replayCurrentRecording() {
         const eventList = currentRecording.getEventList();
-        let event, target;
-        for(let i=0; i<eventList.length; i++) {
-            event = eventList[i];
-            target = event.target;
-            console.log(event);
-            console.log(target);
-            setTimeout(function(event, target) {
+        let event, 
+            target,
+            i=0,
+            tid = setInterval((eventList) => {
+                event = eventList[i];
+                target = event.target;
+                console.log(i)
+                console.log(event);
+                console.log(target);
                 target.dispatchEvent(event.originalEvent);
-            }, 1000, event, target)  ;  
-        }
+                i++;
+                if(i >= eventList.length) {
+                    clearInterval(tid);
+                }
+            }, settings.eventInterval, eventList);
     }
 
     return {
