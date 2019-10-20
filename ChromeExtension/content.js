@@ -8,16 +8,20 @@ window.onload = function () {
             // Start by logging message
             console.log(request.message);
             switch (request.message) {
-                case "recordingToggle":
-                    break;
-                case "toggleNewRecording":
+                case "startNewRecording":
                     recorder.newRecording();
                     break;
-                case "toggleShowRecording":
+                case "showCurrentRecording":
                     console.log(recorder.getCurrentRecording().getEventList());
                     break;
+                case "showAllRecordings":
+                    console.log(recorder.getAllRecordings());
+                    break;
+                case "replayCurrentRecording":
+                    recorder.replayCurrentRecording();
+                    break;
                 default:
-                    console.log("Unhandled message " + request.message);
+                    console.log("Unhandled message " + request.message.toString());
             }
         }
     );
@@ -30,8 +34,13 @@ var Recorder = (function () {
 
     function init() {
         console.log("Recorder created");
+        $("a").on("click", addEvent);
         return this;
     };
+
+    function addEvent(event) {
+        getCurrentRecording().addEvent(event);
+    }
 
     function newRecording() {
         // Add a new recording to the recording list. Set this new recording to be the current recording
@@ -42,12 +51,25 @@ var Recorder = (function () {
 
     function getCurrentRecording() {
         return currentRecording;
+    };
+
+    function getAllRecordings() {
+        return recordingList;
+    };
+
+    function replayCurrentRecording() {
+        const eventList = currentRecording.getEventList();
+        for(let i=0; i<eventList.length; i++) {
+            console.log(eventList[i]);
+        }
     }
 
     return {
         init: init,
         newRecording: newRecording,
-        getCurrentRecording: getCurrentRecording
+        getCurrentRecording: getCurrentRecording,
+        getAllRecordings: getAllRecordings,
+        replayCurrentRecording: replayCurrentRecording
     };
 });
 

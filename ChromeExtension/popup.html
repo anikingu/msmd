@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>MSMD Popup</title>
-    </head>
-    <body>
-        <input type="button" value="Record Now" alt="Record Now" name="recordingToggle" id="recordingToggle" />
-        <input type="button" value="New Recording" alt="Record Now" name="newRecordingToggle" id="newRecordingToggle" />
-        <input type="button" value="Show recording" alt="Show recording" name="showRecordingToggle" id="showRecordingToggle" />
-        <span><input type="checkbox" class="handle" name="anchorCheckbox" id="anchorCheckbox"><label for="anchorCheckbox">Anchors</label></span>
-        <script src="popup.js"></script>
-    </body>
+
+<head>
+    <title>MSMD Popup</title>
+    <script src="popup.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="popup_enum.js"></script>
+</head>
+
+<body>
+    <input type="button" value="Start New Recording" alt="Start New Recording" name="startNewRecording" id=startNewRecording />
+    <input type="button" value="Show Current Recording" alt="Show Current Recording" name="showCurrentRecording" id="showCurrentRecording" />
+    <input type="button" value="Show All Recordings" alt="Show All Recordings" name="showAllRecordings" id="showAllRecordings" />
+    <input type="button" value="Replay Current Recording" alt="Replay Current Recording" name="replayCurrentRecording" id="replayCurrentRecording" />
+</body>
+
 </html>

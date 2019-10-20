@@ -11,32 +11,9 @@ var Popup = (function () {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    var recordingToggle = document.getElementById("recordingToggle"),
-    newRecordingToggle = document.getElementById("newRecordingToggle"),
-    showRecordingToggle = document.getElementById("showRecordingToggle"),
-    anchorCheckbox = document.getElementById("anchorCheckbox")
-    
-    recordingToggle.addEventListener("click", function() {
+    $("input").on("click", function(event) {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {"message": "toggleRecording"});
-        });
-    });
-
-    newRecordingToggle.addEventListener("click", function() {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {"message": "toggleNewRecording"})
-        });
-    });
-
-    showRecordingToggle.addEventListener("click", function() {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {"message": "toggleShowRecording"})
+            chrome.tabs.sendMessage(tabs[0].id, {"message": event.target.id})
         })
-    })
-
-    anchorCheckbox.addEventListener("click", function(target) {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {"message": target});
-        });
     });
 });
