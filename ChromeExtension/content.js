@@ -34,8 +34,9 @@ var Recorder = (function () {
 
     function init() {
         console.log("Recorder created");
+        currentRecording = new Recording();
+        recordingList.push(currentRecording);
         $("a").on("click", addEvent);
-        return this;
     };
 
     function addEvent(event) {
