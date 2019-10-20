@@ -95,10 +95,10 @@ var Recording = (function () {
 
     console.log("Recording created");
     let eventList = [],
-    meta = {
-        hash: "Recording_" + Math.random().toString(36).substr(2),
-        createdDate: new Date()
-    };
+        meta = {
+            hash: "Recording_" + Math.random().toString(36).substr(2),
+            createdDate: new Date()
+        };
 
     function getMeta() {
         return meta;
