@@ -40,7 +40,11 @@ var Recorder = (function () {
     };
 
     function addEvent(event) {
-        getCurrentRecording().addEvent(event);
+        if(event.originalEvent.isTrusted) {
+            console.log("Adding event to recording")
+            console.log(event);
+            getCurrentRecording().addEvent(event);
+        }
     }
 
     function newRecording() {
