@@ -1,7 +1,19 @@
 // content.js
 
+/*
+TODO LIST
+- Allow for starting, pausing, and stopping recording (during creation)
+- Enable tab-scoped recording that continues even when navigating to a new page
+- Import/Export recordings
+- Display list of previous recordings to go back to
+- Determine what elements are selected based on type
+- Enable logging outside of console
+- Remove all external libraries that are downloaded locally (e.g. import jquery from website)
+
+*/
+var recorder;
 window.onload = function () {
-    var recorder = new Recorder();
+    recorder = new Recorder();
     recorder.init();
     chrome.runtime.onMessage.addListener(
         function (request, sender, sendResponse) {
@@ -32,6 +44,7 @@ window.onload = function () {
 
 var Recorder = (function () {
     let isRecording,
+        numWatchedElements,
         currentRecording,
         savedRecordings = {},
         settings = {
@@ -41,16 +54,26 @@ var Recorder = (function () {
     function init() {
         console.log("Recorder created");
         currentRecording = new Recording();
-        $("a").on("click", addEvent);
+        function func(node) {
+            if(node.childElementCount === 0) {
+                node.addEventListener("click", function(event) {
+                    if(event.isTrusted) {
+                        console.log("Adding event to recording");
+                        console.log(event);
+                        getCurrentRecording().addEvent(event);
+                    }
+                }, false);
+                return 1;
+            } else {
+                let cnt = 0;
+                for(let i=0; i<node.childElementCount; i++) {
+                    cnt += func(node.children[i]);
+                }
+                return cnt;
+            };
+        };
+        numWatchedElements = func(document);
     };
-
-    function addEvent(event) {
-        if(event.originalEvent.isTrusted) {
-            console.log("Adding event to recording")
-            console.log(event);
-            getCurrentRecording().addEvent(event);
-        }
-    }
 
     function newRecording() {
         // Reset currentRecording
@@ -81,7 +104,7 @@ var Recorder = (function () {
                 console.log(i)
                 console.log(event);
                 console.log(target);
-                target.dispatchEvent(event.originalEvent);
+                target.dispatchEvent(event);
                 i++;
                 if(i >= eventList.length) {
                     clearInterval(tid);
@@ -90,6 +113,12 @@ var Recorder = (function () {
     }
 
     return {
+        isRecording: isRecording,
+        numWatchedElements: numWatchedElements,
+        currentRecording: currentRecording,
+        savedRecordings: savedRecordings,
+        settings: settings,
+
         init: init,
         newRecording: newRecording,
         saveCurrentRecording: saveCurrentRecording,
@@ -121,6 +150,8 @@ var Recording = (function () {
     };
 
     return {
+        eventList: eventList,
+
         meta: getMeta(),
         addEvent: addEvent,
         getEventList: getEventList
