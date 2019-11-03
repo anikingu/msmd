@@ -54,21 +54,37 @@ var Recorder = (function () {
         currentRecording,
         savedRecordings = {},
         settings = {
-            eventInterval: 1000
+            eventInterval: 1000,
+            eventTypes: new Set()
         };
 
     function init() {
         console.log("Recorder created");
+        settings.eventTypes.add("click");
+    };
+
+    function newRecording() {
+        // Reset currentRecording
         currentRecording = new Recording();
+        console.log("New recording created");
+        isRecording = false
+    };
+
+    function recordEvent(event) {
+        if(event.isTrusted) {
+            console.log("Adding event to recording");
+            console.log(event);
+            getCurrentRecording().addEvent(event);
+        }
+    }
+
+    function startRecording() {
+        // Create a new recording and then setup the event listener
+        newRecording();
         function func(node) {
             if(node.childElementCount === 0) {
-                node.addEventListener("click", function(event) {
-                    if(event.isTrusted) {
-                        console.log("Adding event to recording");
-                        console.log(event);
-                        getCurrentRecording().addEvent(event);
-                    }
-                }, false);
+                settings.eventTypes.forEach(function(eventType) {
+                    node.addEventListener(eventType, recordEvent, false)});
                 return 1;
             } else {
                 let cnt = 0;
@@ -79,13 +95,34 @@ var Recorder = (function () {
             };
         };
         numWatchedElements = func(document);
-    };
+        isRecording = true;
+    }
 
-    function newRecording() {
-        // Reset currentRecording
-        currentRecording = new Recording();
-        console.log("New recording created");
-    };
+    function stopRecording() {
+        isRecording = false;
+        // Remove listeners
+        function func(node) {
+            if(node.childElementCount === 0) {
+                settings.eventTypes.forEach(function(eventType) {
+                    node.removeEventListener(eventType, recordEvent, false);
+                })
+            } else {
+                for(let i=0; i<node.childElementCount; i++) {
+                    func(node.children[i]);
+                }
+            }
+        }
+        func(document);
+        promptSaveRecording();
+    }
+
+    function promptSaveRecording() {
+        let response = prompt("Enter a name to save the recording. (Press cancel to abort)", currentRecording.meta.name);
+        if (response) {
+            currentRecording.meta.name = response;
+            saveCurrentRecording();
+        }
+    }
 
     function saveCurrentRecording() {
         savedRecordings[currentRecording.meta.hash] = currentRecording;
@@ -130,7 +167,9 @@ var Recorder = (function () {
         saveCurrentRecording: saveCurrentRecording,
         getCurrentRecording: getCurrentRecording,
         getAllRecordings: getAllRecordings,
-        replayCurrentRecording: replayCurrentRecording
+        replayCurrentRecording: replayCurrentRecording,
+        startRecording: startRecording,
+        stopRecording: stopRecording
     };
 });
 
@@ -140,7 +179,8 @@ var Recording = (function () {
     let eventList = [],
         meta = {
             hash: "Recording_" + Math.random().toString(36).substr(2),
-            createdDate: new Date()
+            createdDate: new Date(),
+            name: ""
         };
 
     function getMeta() {
