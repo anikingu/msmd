@@ -6,9 +6,15 @@ TODO LIST
 - Enable tab-scoped recording that continues even when navigating to a new page
 - Import/Export recordings
 - Display list of previous recordings to go back to
+- Record more than just clicks (e.g. keystrokes, onblur, etc.)
+- Allow custom events to be specified and recorded
 - Determine what elements are selected based on type
 - Enable logging outside of console
 - Remove all external libraries that are downloaded locally (e.g. import jquery from website)
+
+- Allow for recordings to be loaded from browser storage
+- If loaded recordings are from the same domain, allow for them to be further edited
+
 
 */
 var recorder;
