@@ -41,6 +41,12 @@ window.onload = function () {
                 case "replayCurrentRecording":
                     recorder.replayCurrentRecording();
                     break;
+                case "startRecording":
+                    recorder.startRecording();
+                    break;
+                case "stopRecording":
+                    recorder.stopRecording();
+                    break;
                 default:
                     console.log("Unhandled message " + request.message.toString());
             }
