@@ -62,11 +62,17 @@ var Recorder = (function () {
         settings = {
             eventInterval: 1000,
             eventTypes: new Set()
-        };
+        },
+        keyboardListener = new KeyboardListener();
 
     function init() {
         console.log("Recorder created");
-        settings.eventTypes.add("click");
+        // settings.eventTypes.add("click");
+        // settings.eventTypes.add("keypress");
+        // settings.eventTypes.add("focus");
+        currentRecording = new Recording();
+        keyboardListener.setRecording(currentRecording);
+        keyboardListener.toggleListener(true);
     };
 
     function newRecording() {
@@ -149,11 +155,9 @@ var Recorder = (function () {
             i=0,
             tid = setInterval((eventList) => {
                 event = eventList[i];
-                target = event.target;
-                console.log(i)
                 console.log(event);
-                console.log(target);
-                target.dispatchEvent(event);
+                event.replay();
+
                 i++;
                 if(i >= eventList.length) {
                     clearInterval(tid);
@@ -209,3 +213,74 @@ var Recording = (function () {
         getEventList: getEventList
     };
 });
+
+const MsmdAction = (function(replayCallback, argObj) {
+
+    function replay() {
+        if(replayCallback) {
+            replayCallback(argObj);
+        } else {
+            console.log("Replay action.")
+        }
+    }
+
+    return {
+        replay: replay
+    }
+})
+
+let KeyboardListener = (function() {
+
+    let eventTypes = new Set(),
+        listenerOn = false,
+        recording;
+    eventTypes.add("keypress");
+
+    function toggleListener(switchOn) {
+        if(switchOn !== listenerOn) {
+            toggleListenerHelper(document, switchOn);
+            listenerOn = switchOn;
+            console.log( listenerOn ?
+                "Keyboard Listening Enabled" :
+                "Keyboard Listening Disabled");
+        }
+    }
+
+    function toggleListenerHelper(node, switchOn) {
+        if(node.childElementCount === 0) {
+            eventTypes.forEach(function(eventType) {
+                if(switchOn) {
+                    node.addEventListener(eventType, capture, false);
+                } else {
+                    node.removeEventListener(eventType, capture, false);
+                }
+            })
+        } else {
+            for(let i=0; i<node.childElementCount; i++) {
+                toggleListenerHelper(node.children[i], switchOn);
+            }
+        }
+    }
+
+    function capture(event) {
+        let argObj = {event: event};
+            action = new MsmdAction(replay, argObj);
+        recording.addEvent(action);
+        console.log("Captured keypress");
+    }
+
+    function replay(argObj) {
+        let event = argObj.event;
+        console.log(event);
+        console.log(event.target);
+    }
+
+    function setRecording(rec) {
+        recording = rec;
+    }
+
+    return {
+        toggleListener: toggleListener,
+        setRecording: setRecording
+    }
+})
