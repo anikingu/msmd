@@ -1,6 +1,7 @@
 const { app, BrowserView, BrowserWindow, ipcMain } = require('electron');
 const { join } = require('path');
 const path = require('path');
+const fs = require('fs');
 // require('./security-config');
 
 /* Used for hot reloading app */
@@ -44,18 +45,51 @@ app.whenReady().then(() => {
     });
 });
 
+let script = {
+    title: "testScript",
+    description: "",
+    starting_url: "https://wikipedia.org",
+    steps: [],
+    uuid: "abc123"
+};
+const buildStep = (eventDto, action, input) => {
+    return {
+        type: "INTERACT",
+        target: eventDto,
+        action: action,
+        input: input
+    }
+};
+const addStepToScript = (eventDto, action) => {
+    const step = buildStep(eventDto, action, eventDto.value);
+    script.steps.push(step);
+};
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-ipcMain.on('click-message', (event, arg) => {
+ipcMain.on('click-message', (event, eventDto) => {
     console.log('Received message');
-    console.log(arg);
+    console.log(event);
+    console.log(eventDto);
+    addStepToScript(eventDto, "click");
 });
 
-ipcMain.on('input-changed-message', (event, arg) => {
+ipcMain.on('input-changed-message', (event, eventDto) => {
     console.log('Input Received');
-    console.log(arg);
-})
+    console.log(event);
+    console.log(eventDto);
+    addStepToScript(eventDto, "change");
+});
+
+ipcMain.on('create-file', (event, eventDto) => {
+    console.log('Building file');
+    const filePath = path.join(__dirname, '../data/testScript.json')
+    console.log(filePath);
+    fs.writeFile(filePath, JSON.stringify(script), (err) => {
+        if (err) throw err;
+        console.log(`${filePath} saved successfully!`)
+    });
+});
