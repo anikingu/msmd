@@ -23,12 +23,12 @@ const createWindow = () => {
     });
     const view = new BrowserView({
         webPreferences: {
-            preload: path.join(__dirname, 'event-register.js')
+            preload: path.join(__dirname, 'renderer/event-register.js')
         }
     });
     win.setBrowserView(view);
     view.setBounds({x: 100, y: 0, width: 1200, height: 825})
-    win.loadFile('index.html');
+    win.loadFile(path.join(__dirname, 'console/console.html'));
     view.webContents.loadURL('https://www.wikipedia.org');
     view.webContents.openDevTools();
     win.openDevTools();
@@ -86,7 +86,7 @@ ipcMain.on('input-changed-message', (event, eventDto) => {
 
 ipcMain.on('create-file', (event, eventDto) => {
     console.log('Building file');
-    const filePath = path.join(__dirname, '../data/testScript.json')
+    const filePath = path.join(__dirname, '../../data/testScript.json')
     console.log(filePath);
     fs.writeFile(filePath, JSON.stringify(script), (err) => {
         if (err) throw err;
