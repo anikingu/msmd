@@ -14,6 +14,9 @@ console.log(process.env["PATH"]);
     try {
         await driver.get(scriptObj.starting_url);
         for (let i = 0; i < scriptObj.steps.length; i++) {
+            try {
+                await driver.wait(until.titleIs('webdriver - Google Search'), 2000);
+            } catch {}
             const step = scriptObj.steps[i];
             console.log(step);
             const xpath = step.target.full_xpath +
@@ -22,22 +25,21 @@ console.log(process.env["PATH"]);
                 ' ' + (step.target.attributes.class ? `@class="${step.target.attributes.class}"`: '') + ']' :
                 '');
             const target = await driver.findElement(By.xpath(xpath));
+            console.log(target);
             switch (step.action) {
                 case 'click':
+                    console.log("Clicking")
                     await target.click();
                     break;
                 case 'change':
-                    await target.sendKeys(step.input);
+                    await target.sendKeys(step.target.value);
                     break;
                 default:
                     break;
             }
-            try {
-                await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-            } catch {}
         }
     } finally {
-        await driver.quit();
+        // await driver.quit();
     }
 
 
