@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+
 console.log("Running preload")
 window.onload = () => {
     const deriveXpath = (path) => {

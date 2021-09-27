@@ -10,8 +10,8 @@
 
     There should also be an enum for Step types contained in the module
 */
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
 
 const ScriptBuilder = (starting_url, config = {}) => {
@@ -19,6 +19,7 @@ const ScriptBuilder = (starting_url, config = {}) => {
         throw new Error("Starting url required to instantiate script builder");
     }
     
+    console.log("Initializing new script builder")
     const uuid = 'testScript';
     let title = uuid;
     let description = '';

@@ -3,12 +3,15 @@ const path = require('path');
 const { ScriptBuilder, StepType } = require('./script-builder');
 // require('./security-config');
 
-/* Used for hot reloading app */
+/* Used for hot reloading app during development*/
 try {
     require('electron-reloader')(module);
 } catch {}
 
-
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+    app.quit();
+}
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -20,6 +23,9 @@ const createWindow = () => {
             enableRemoteModule: true
         }
     });
+    win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+    // win.loadFile('./console/console.html')
+    win.openDevTools();
     const view = new BrowserView({
         webPreferences: {
             preload: path.join(__dirname, 'renderer/event-register.js')
@@ -27,10 +33,8 @@ const createWindow = () => {
     });
     win.setBrowserView(view);
     view.setBounds({x: 100, y: 0, width: 1200, height: 825})
-    win.loadFile(path.join(__dirname, 'console/console.html'));
     view.webContents.loadURL('https://www.wikipedia.org');
     view.webContents.openDevTools();
-    win.openDevTools();
     
 };
 
