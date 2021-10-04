@@ -61,7 +61,7 @@ const MainProcess = function () {
     };
 
     const createBuilder = (url) => {
-        builder = ScriptBuilder(url);
+        builder = ScriptBuilder(url, mainWindow);
     }
 
     ipcMain.on('click-message', (event, eventDto) => {

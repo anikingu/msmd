@@ -5,15 +5,24 @@ import { ipcRenderer } from 'electron';
 function Step({step, index}) {
     return (
         <div className="step">
-            Some Step {index}: {step}
+            Some Step {index}: {step.action}
         </div>
     );
 }
 
 function ControlPanel() {
-    const [steps, setSteps] = React.useState(["one","two","three"]);
+    const [steps, setSteps] = React.useState([]);
     const recordingButton = React.createRef();
     const urlSpan = React.createRef();
+
+    React.useEffect(() => {
+        ipcRenderer.on("steps-updated", (event, args) => {
+            const steps = args;
+            console.log("Received steps: " + steps.length)
+            // console.log(steps);
+            setSteps(steps);
+        }); 
+    }, [])
 
     const toggleRecording = () => {
         if(recordingButton.current.checked) {
@@ -26,6 +35,8 @@ function ControlPanel() {
             })
         }
     }
+
+    
 
     return (
         <div id="control-panel">

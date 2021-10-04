@@ -12,11 +12,16 @@
 */
 const path = require('path');
 const fs = require('fs');
+const { ipcMain, BrowserWindow } = require('electron');
 
 
-const ScriptBuilder = (starting_url, config = {}) => {
+const ScriptBuilder = (starting_url, window, config = {}) => {
     if(starting_url === null) {
         throw new Error("Starting url required to instantiate script builder");
+    }
+
+    if(window === null) {
+        throw new Error("Window is required to instantiate script builder");
     }
     
     console.log("Initializing new script builder")
@@ -53,6 +58,9 @@ const ScriptBuilder = (starting_url, config = {}) => {
             input: input
         };
         steps = [...steps, newStep];
+        console.log("Sending steps: ")
+        console.log(steps);
+        window.webContents.send('steps-updated', steps);
     }
 
     const generateSignature = () => {
