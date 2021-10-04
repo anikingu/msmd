@@ -2,6 +2,8 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 
+import ControlPanel from './components/control-panel/control-panel';
+
 window.onload = () => {
     document.getElementById('download-button').addEventListener('click', () => {
         ipcRenderer.send('create-file')
@@ -10,7 +12,7 @@ window.onload = () => {
 
 function Console() {
     return (
-        <div>Hello again world</div>
+        <ControlPanel />
     );
 }
 

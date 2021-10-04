@@ -26,23 +26,24 @@ const createWindow = () => {
     win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     // win.loadFile('./console/console.html')
     win.openDevTools();
-    const view = new BrowserWindow({
-        x: 450,
-        y: 90,
-        width: 1500,
-        height: 700,
-        parent: win,
-        kiosk: true,
-        fullscreen: false,
-        fullscreenable: false,
-        autoHideMenuBar: true,
-        hasShadow: false,
-        webPreferences: {
-            preload: path.join(__dirname, 'renderer/event-register.js')
-        }
-    });
-    win.setBrowserView(view);
-    view.webContents.loadURL('https://www.wikipedia.org');
+    // const view = new BrowserWindow({
+    //     x: 450,
+    //     y: 90,
+    //     width: 1500,
+    //     height: 700,
+    //     parent: win,
+    //     kiosk: true,
+    //     fullscreen: false,
+    //     fullscreenable: false,
+    //     // frame: false,
+    //     autoHideMenuBar: true,
+    //     hasShadow: false,
+    //     webPreferences: {
+    //         preload: path.join(__dirname, 'renderer/event-register.js')
+    //     }
+    // });
+    // win.setBrowserView(view);
+    // view.webContents.loadURL('https://www.wikipedia.org');
     // view.webContents.openDevTools();
     
 };

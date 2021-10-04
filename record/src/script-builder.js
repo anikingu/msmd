@@ -69,7 +69,7 @@ const ScriptBuilder = (starting_url, config = {}) => {
             uuid: uuid,
             signature: generateSignature()
         });
-        const scriptPath = path.join(__dirname, `../../data/${title}.json`);
+        const scriptPath = path.join(__dirname, `../../../data/${title}.json`);
         console.log(`Attempting to write file: ${scriptPath}`);
         fs.writeFile(scriptPath, script, (err) => {
             if (err) throw err;
