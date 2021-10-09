@@ -20,7 +20,7 @@ const MainProcess = function () {
 
     const init = () => {
         createMainWindow();
-        createMonitoredWindow();
+        createMonitoredWindow('https://wikipedia.org');
         createBuilder('https://wikipedia.org');
     }
 
@@ -38,7 +38,7 @@ const MainProcess = function () {
         // win.loadFile('./console/console.html')
         mainWindow.openDevTools();
     }
-    const createMonitoredWindow = () => {
+    const createMonitoredWindow = (url) => {
         monitoredWindow = new BrowserWindow({
             x: 450,
             y: 90,
@@ -55,7 +55,7 @@ const MainProcess = function () {
                 preload: path.join(__dirname, 'renderer/event-register.js')
             }
         });
-        monitoredWindow.webContents.loadURL('https://www.wikipedia.org');
+        monitoredWindow.webContents.loadURL(url);
         // view.webContents.openDevTools();
 
     };
@@ -74,6 +74,12 @@ const MainProcess = function () {
         console.log('Input Received');
         console.log(eventDto);
         builder.addStep(StepType.INTERACT, eventDto, "change");
+    });
+
+    ipcMain.on('reset-listener-window', (event, url) => {
+        console.log('Received reset-listener-window');
+        monitoredWindow.destroy();
+        createMonitoredWindow(url);
     });
 
     ipcMain.on('create-file', (event, eventDto) => {

@@ -14,6 +14,7 @@ function ControlPanel() {
     const [steps, setSteps] = React.useState([]);
     const recordingButton = React.createRef();
     const urlSpan = React.createRef();
+    const startUrl = React.createRef();
 
     React.useEffect(() => {
         ipcRenderer.on("steps-updated", (event, args) => {
@@ -36,6 +37,16 @@ function ControlPanel() {
         }
     }
 
+    const handleUrlSubmit = () => {
+        const url = startUrl.current;
+        console.log(url.value);
+        if(url.value && url.checkValidity()) {
+            ipcRenderer.send('reset-listener-window', url.value);
+        } else {
+            console.error(`${url.value} is invalid`);
+        }
+    }
+
     
 
     return (
@@ -43,7 +54,7 @@ function ControlPanel() {
             <div>
                 <h2>Recording Controls</h2>
                 <div>
-                    <span id="url-span" ref={urlSpan}><input type="url" id="url"/><button id="url-go">Go</button></span>
+                    <span id="url-span" ref={urlSpan} onKeyPress={(event) => {if(event.key ===  "Enter") handleUrlSubmit()}}><input type="url" id="startUrl" ref={startUrl}/><button id="url-go" onClick={handleUrlSubmit}>Go</button></span>
                     <br/>
                     <label htmlFor="checkbox">Record</label>
                     <input type="checkbox" id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
