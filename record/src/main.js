@@ -15,12 +15,12 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 const MainProcess = function () {
     let mainWindow;
-    let monitoredWindow;
+    let auxiliaryWindow;
     let builder;
 
     const init = () => {
         createMainWindow();
-        createMonitoredWindow('https://wikipedia.org');
+        createAuxiliaryWindow('https://wikipedia.org');
         createBuilder('https://wikipedia.org');
     }
 
@@ -35,15 +35,19 @@ const MainProcess = function () {
             }
         });
         mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-        // win.loadFile('./console/console.html')
         mainWindow.openDevTools();
+
+        mainWindow.on('move', (event) => {
+            const mwBounds = mainWindow.getBounds();
+            auxiliaryWindow.setBounds({
+                ...getAuxiliaryWindowBounds(mwBounds)
+            });
+        });    
     }
-    const createMonitoredWindow = (url) => {
-        monitoredWindow = new BrowserWindow({
-            x: 450,
-            y: 90,
-            width: 1500,
-            height: 700,
+    const createAuxiliaryWindow = (url) => {
+        const mwBounds = mainWindow.getBounds();
+        auxiliaryWindow = new BrowserWindow({
+            ...getAuxiliaryWindowBounds(mwBounds),
             parent: mainWindow,
             kiosk: true,
             fullscreen: false,
@@ -55,10 +59,23 @@ const MainProcess = function () {
                 preload: path.join(__dirname, 'renderer/event-register.js')
             }
         });
-        monitoredWindow.webContents.loadURL(url);
-        // view.webContents.openDevTools();
+        auxiliaryWindow.webContents.loadURL(url);
+        view.webContents.openDevTools();
 
     };
+
+    const getAuxiliaryWindowBounds = ({x, y, width, height}) => {
+        const mwPercentWidth = 0.8;
+        const mwPercentHeight = 0.65;
+        const mwWidthOffset = 0;
+        const mwHeightOffset = 30;
+        return {
+            x: x + Math.floor((1-mwPercentWidth) * width),
+            y: y + mwHeightOffset,
+            width: Math.floor(mwPercentWidth * width),
+            height: Math.floor(mwPercentHeight * height)
+        }
+    }
 
     const createBuilder = (url) => {
         builder = ScriptBuilder(url, mainWindow);
@@ -78,8 +95,8 @@ const MainProcess = function () {
 
     ipcMain.on('reset-listener-window', (event, url) => {
         console.log('Received reset-listener-window');
-        monitoredWindow.destroy();
-        createMonitoredWindow(url);
+        auxiliaryWindow.destroy();
+        createAuxiliaryWindow(url);
     });
 
     ipcMain.on('create-file', (event, eventDto) => {
@@ -89,7 +106,7 @@ const MainProcess = function () {
     return {
         init: init,
         createMainWindow: createMainWindow,
-        createMonitoredWindow: createMonitoredWindow
+        createAuxiliaryWindow: createAuxiliaryWindow
     }
 }();
 
