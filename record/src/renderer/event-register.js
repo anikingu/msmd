@@ -29,6 +29,7 @@ window.onload = () => {
         Object.values(event.target.attributes).map((value) => {
             attrMap[value.name] = value.nodeValue;
         });
+        event.target.innerText && (attrMap['innerText'] = event.target.innerText);
         const eventDto = {
             ...deriveXpath(event.path),
             attributes: attrMap,
