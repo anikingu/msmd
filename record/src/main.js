@@ -56,12 +56,15 @@ const MainProcess = function () {
             autoHideMenuBar: true,
             hasShadow: false,
             webPreferences: {
-                preload: path.join(__dirname, 'renderer/event-register.js')
+                preload: path.join(__dirname, 'renderer/event-register.js'),
+                nodeIntegration: false,
+                contextIsolation: true,
+                enableRemoteModule: false,
+                sandbox: true
             }
         });
         auxiliaryWindow.webContents.loadURL(url);
-        view.webContents.openDevTools();
-
+        auxiliaryWindow.webContents.openDevTools();
     };
 
     const getAuxiliaryWindowBounds = ({x, y, width, height}) => {
