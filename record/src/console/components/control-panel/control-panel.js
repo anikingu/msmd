@@ -10,11 +10,10 @@ function Step({step, index}) {
     );
 }
 
-function ControlPanel() {
+function ControlPanel({handleUrlSubmit, startUrl}) {
     const [steps, setSteps] = React.useState([]);
     const recordingButton = React.createRef();
     const urlSpan = React.createRef();
-    const startUrl = React.createRef();
 
     React.useEffect(() => {
         ipcRenderer.on("steps-updated", (event, args) => {
@@ -36,18 +35,6 @@ function ControlPanel() {
             })
         }
     }
-
-    const handleUrlSubmit = () => {
-        const url = startUrl.current;
-        console.log(url.value);
-        if(url.value && url.checkValidity()) {
-            ipcRenderer.send('reset-listener-window', url.value);
-        } else {
-            console.error(`${url.value} is invalid`);
-        }
-    }
-
-    
 
     return (
         <div id="control-panel">

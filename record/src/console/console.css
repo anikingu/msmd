@@ -1,0 +1,23 @@
+body {
+    height: 100%;
+}
+
+#control-panel {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    width: 25%;
+    top: 0;
+    left: 0;
+
+    background-color: grey;
+}
+
+#auxiliary-window {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    width: 75%;
+    top: 0;
+    left: 25%
+}

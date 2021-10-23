@@ -20,8 +20,6 @@ const MainProcess = function () {
 
     const init = () => {
         createMainWindow();
-        createAuxiliaryWindow('https://wikipedia.org');
-        createBuilder('https://wikipedia.org');
     }
 
     const createMainWindow = () => {
@@ -31,53 +29,12 @@ const MainProcess = function () {
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false,
-                enableRemoteModule: true
+                enableRemoteModule: true,
+                webviewTag: true
             }
         });
         mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
         mainWindow.openDevTools();
-
-        mainWindow.on('move', (event) => {
-            const mwBounds = mainWindow.getBounds();
-            auxiliaryWindow.setBounds({
-                ...getAuxiliaryWindowBounds(mwBounds)
-            });
-        });    
-    }
-    const createAuxiliaryWindow = (url) => {
-        const mwBounds = mainWindow.getBounds();
-        auxiliaryWindow = new BrowserWindow({
-            ...getAuxiliaryWindowBounds(mwBounds),
-            parent: mainWindow,
-            kiosk: true,
-            fullscreen: false,
-            fullscreenable: false,
-            // frame: false,
-            autoHideMenuBar: true,
-            hasShadow: false,
-            webPreferences: {
-                preload: path.join(__dirname, 'renderer/event-register.js'),
-                nodeIntegration: false,
-                contextIsolation: true,
-                enableRemoteModule: false,
-                sandbox: true
-            }
-        });
-        auxiliaryWindow.webContents.loadURL(url);
-        auxiliaryWindow.webContents.openDevTools();
-    };
-
-    const getAuxiliaryWindowBounds = ({x, y, width, height}) => {
-        const mwPercentWidth = 0.8;
-        const mwPercentHeight = 0.65;
-        const mwWidthOffset = 0;
-        const mwHeightOffset = 30;
-        return {
-            x: x + Math.floor((1-mwPercentWidth) * width),
-            y: y + mwHeightOffset,
-            width: Math.floor(mwPercentWidth * width),
-            height: Math.floor(mwPercentHeight * height)
-        }
     }
 
     const createBuilder = (url) => {
@@ -109,7 +66,6 @@ const MainProcess = function () {
     return {
         init: init,
         createMainWindow: createMainWindow,
-        createAuxiliaryWindow: createAuxiliaryWindow
     }
 }();
 
