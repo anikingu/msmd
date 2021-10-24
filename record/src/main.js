@@ -47,23 +47,22 @@ const MainProcess = function () {
         console.log("Script builder destroyed");
     }
 
-    ipcMain.on('click-message', (event, eventDto) => {
-        console.log('Received message');
-        console.log(eventDto);
-        builder.addStep(StepType.INTERACT, eventDto, 'click');
-    });
-
-    ipcMain.on('input-changed-message', (event, eventDto) => {
-        console.log('Input Received');
-        console.log(eventDto);
-        builder.addStep(StepType.INTERACT, eventDto, "change");
-    });
-
     ipcMain.on('start-recording-message', (event, startUrl) => {
         console.log("Start recording");
         // Create new builder
         createBuilder(startUrl);
         // Turn on event listeners
+        ipcMain.on('click-message', (event, eventDto) => {
+            console.log('Received message');
+            console.log(eventDto);
+            builder.addStep(StepType.INTERACT, eventDto, 'click');
+        });
+
+        ipcMain.on('input-changed-message', (event, eventDto) => {
+            console.log('Input Received');
+            console.log(eventDto);
+            builder.addStep(StepType.INTERACT, eventDto, "change");
+        });
     });
 
     ipcMain.on('stop-recording-message', (event, eventDto) => {
@@ -72,6 +71,8 @@ const MainProcess = function () {
         // Destroy builder
         destroyBuilder();
         // Turn off event listeners
+        ipcMain.removeAllListeners('click-message');
+        ipcMain.removeAllListeners('input-changed-message');
     });
 
     ipcMain.on('reset-listener-window', (event, url) => {
