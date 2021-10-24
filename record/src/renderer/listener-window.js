@@ -36,8 +36,6 @@ const ListenerWindow = (
 
     const getUrl = () => webview.getURL();
 
-    const ref = () => document.querySelector(`${parentContainerId.includes('#') ? parentContainerId : '#' + parentContainerId} webview`);
-
     const navigateToUrl = (url) => webview.loadURL(url);
 
     const refresh = () => webview.reload();

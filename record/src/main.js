@@ -39,6 +39,12 @@ const MainProcess = function () {
 
     const createBuilder = (url) => {
         builder = ScriptBuilder(url, mainWindow);
+        console.log(`New script builder created. StartUrl: ${url}`);
+    }
+
+    const destroyBuilder = () => {
+        builder = null;
+        console.log("Script builder destroyed");
     }
 
     ipcMain.on('click-message', (event, eventDto) => {
@@ -51,6 +57,21 @@ const MainProcess = function () {
         console.log('Input Received');
         console.log(eventDto);
         builder.addStep(StepType.INTERACT, eventDto, "change");
+    });
+
+    ipcMain.on('start-recording-message', (event, startUrl) => {
+        console.log("Start recording");
+        // Create new builder
+        createBuilder(startUrl);
+        // Turn on event listeners
+    });
+
+    ipcMain.on('stop-recording-message', (event, eventDto) => {
+        // Prompt save
+        console.log("Recording stopped");
+        // Destroy builder
+        destroyBuilder();
+        // Turn off event listeners
     });
 
     ipcMain.on('reset-listener-window', (event, url) => {

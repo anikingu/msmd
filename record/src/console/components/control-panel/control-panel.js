@@ -10,10 +10,8 @@ function Step({step, index}) {
     );
 }
 
-function ControlPanel({handleUrlSubmit, startUrl}) {
+function ControlPanel({urlSpan, startUrl, handleUrlSubmit, recordingButton, toggleRecording}) {
     const [steps, setSteps] = React.useState([]);
-    const recordingButton = React.createRef();
-    const urlSpan = React.createRef();
 
     React.useEffect(() => {
         ipcRenderer.on("steps-updated", (event, args) => {
@@ -22,19 +20,7 @@ function ControlPanel({handleUrlSubmit, startUrl}) {
             // console.log(steps);
             setSteps(steps);
         }); 
-    }, [])
-
-    const toggleRecording = () => {
-        if(recordingButton.current.checked) {
-            urlSpan.current.childNodes.forEach((child) => {
-                child.setAttribute("disabled", '')
-            });
-        } else {
-            urlSpan.current.childNodes.forEach((child) => {
-                child.removeAttribute("disabled");
-            })
-        }
-    }
+    }, []);
 
     return (
         <div id="control-panel">

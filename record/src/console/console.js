@@ -13,7 +13,10 @@ window.onload = () => {
 }
 
 function Console() {
+    const urlSpan = React.createRef();
     const startUrl = React.createRef();
+    const recordingButton = React.createRef();
+
     const [webview, setWebview] = React.useState();
 
     React.useEffect(() => {
@@ -28,19 +31,32 @@ function Console() {
 
     const handleUrlSubmit = () => {
         const url = startUrl.current;
-        console.log(url.value);
         if(url.value && url.checkValidity()) {
             // ipcRenderer.send('reset-listener-window', url.value);
-            console.log(webview);
+            console.log(`Navigating to ${url.value}`);
             webview.navigateToUrl(url.value);
         } else {
             console.error(`${url.value} is invalid`);
         }
     }
 
+    const toggleRecording = () => {
+        if(recordingButton.current.checked) {
+            urlSpan.current.childNodes.forEach((child) => {
+                child.setAttribute("disabled", '')
+            });
+            ipcRenderer.send('start-recording-message', webview.getUrl());
+        } else {
+            urlSpan.current.childNodes.forEach((child) => {
+                child.removeAttribute("disabled");
+            })
+            ipcRenderer.send('stop-recording-message');
+        }
+    }
+
     return (
         <div id="console">
-            <ControlPanel startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
+            <ControlPanel urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
             <div id="auxiliary-window" ></div>
         </div>
     );
