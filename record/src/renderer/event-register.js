@@ -43,7 +43,7 @@ window.onload = () => {
         console.log("Register click");
         console.log(event);
         ipcRenderer.send('click-message', eventToDto(event));
-    });
+    }, true);
     ['input[type="text"]', 'input[type="search"]', "textbox"].forEach((selector) =>  {
         document.querySelectorAll(selector).forEach((input) => {
             input.addEventListener('change', (event) => {
