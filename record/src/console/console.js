@@ -5,6 +5,7 @@ import './console.css';
 
 import ControlPanel from './components/control-panel/control-panel';
 import ListenerWindow from '../renderer/listener-window';
+import Modal from './components/modal/modal';
 
 window.onload = () => {
     document.getElementById('download-button').addEventListener('click', () => {
@@ -56,6 +57,7 @@ function Console() {
 
     return (
         <div id="console">
+            <Modal />
             <ControlPanel urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
             <div id="auxiliary-window" ></div>
         </div>

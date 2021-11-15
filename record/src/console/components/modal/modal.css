@@ -1,0 +1,85 @@
+.modal {
+    /* display: none; */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    /* overflow: auto; Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 150px auto; /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 5px;
+    width: 60%; /* Could be more or less, depending on screen size */
+    min-width: 400px;
+}
+
+.modal-field {
+    display: block;
+    padding: 5px 0;
+}
+
+.modal-field * {
+    display: block;
+}
+
+.modal-field input, .modal-field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    min-height: 20px;
+}
+
+.modal-buttons {
+    display: block;
+}
+
+.modal-buttons * {
+    display: inline;
+    margin: 5px;
+    padding: 5px;
+}
+
+span.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    margin-left: 2px;
+    border-left: 4px solid;
+    border-top: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 250ms ease-in-out;
+}
+
+span.caret-expanded {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    margin-left: 2px;
+    border-left: 4px solid;
+    border-top: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transform: rotateZ(90deg);
+    transition: transform 250ms ease-in-out;
+}
+
+.modal-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+}
+
+.modal-collapsible-expanded {
+    max-height: 100vh;
+    transition: max-height 300ms ease-in-out;
+}

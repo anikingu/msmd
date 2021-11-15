@@ -29,7 +29,7 @@ const ListenerWindow = (
     if (inspect) {
         // connecting element to the doms take time therefore a slight delay
         setTimeout(() => {
-            webview.openDevTools();
+            // webview.openDevTools();
         }, 10);
     }
     console.log("Webview attached");
