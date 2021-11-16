@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { ipcRenderer } from 'electron';
 import './modal.css'
 
-function Modal({script}) {
+function Modal({hideModal}) {
+    const scriptTitle = document.getElementById('script-title');
+    const scriptDescription = document.getElementById('script-description');
     const advancedSettingsCaret = document.getElementById('advanced-settings-caret');
     const advancedSettingsContent = document.getElementById('advanced-settings-content')
 
@@ -20,6 +23,28 @@ function Modal({script}) {
         }
     }
 
+    const handleDiscard = () => {
+        ipcRenderer.send('destroy-script-builder');
+        clearFields();
+        hideModal();
+    }
+
+    const handleSave = () => {
+        const scriptDto = {
+            title: scriptTitle.value,
+            description: scriptDescription.value
+        }
+        ipcRenderer.send('create-file', scriptDto);
+        ipcRenderer.send('destroy-script-builder');
+        clearFields();
+        hideModal();
+    }
+
+    const clearFields = () => {
+        scriptTitle.value = '';
+        scriptDescription.value = '';
+    }
+
     return (
         <div id='modal' className='modal'>
             <div className='modal-content'>
@@ -32,7 +57,7 @@ function Modal({script}) {
 
                 <div className='modal-field'>
                 <label htmlFor='script-description'>Description</label>
-                <textarea placeholder='Something interesting about the test'></textarea>
+                <textarea id='script-description' placeholder='Something interesting about the test'></textarea>
                 </div>
 
                 <span onClick={toggleAdvanced}>Advanced <span id='advanced-settings-caret' className='caret' /></span>
@@ -41,8 +66,8 @@ function Modal({script}) {
                 </div>
 
                 <div className='modal-buttons'>
-                    <button type='button' id='discard-button'>Discard</button>
-                    <button type='button' id='save-button'>Save</button>
+                    <button type='button' id='discard-button' onClick={handleDiscard}>Discard</button>
+                    <button type='button' id='save-button' onClick={handleSave}>Save</button>
                 </div>
             </div>
         </div>

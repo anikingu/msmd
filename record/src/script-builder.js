@@ -15,7 +15,7 @@ const fs = require('fs');
 const { ipcMain, BrowserWindow } = require('electron');
 
 
-const ScriptBuilder = (starting_url, window, config = {}) => {
+const ScriptBuilder = (starting_url, window) => {
     if(starting_url === null) {
         throw new Error("Starting url required to instantiate script builder");
     }
@@ -26,25 +26,7 @@ const ScriptBuilder = (starting_url, window, config = {}) => {
     
     console.log("Initializing new script builder")
     const uuid = 'testScript';
-    let title = uuid;
-    let description = '';
     let steps = [];
-
-    const setTitle = (newTitle) => {
-        title = newTitle;
-    }
-    
-    const getTitle = () => {
-        return title;
-    }
-
-    const setDescription = (newDescription) => {
-        description = newDescription;
-    }
-
-    const getDescription = () => {
-        return description;
-    }
     
     const addStep = (type, target, action, input) => {
         // Verify that the type is a valid enum
@@ -67,29 +49,26 @@ const ScriptBuilder = (starting_url, window, config = {}) => {
         signature = 'signature';
     }
 
-    const save = () => {
-        const script = JSON.stringify({
-            title: title,
-            description: description,
+    const save = ({title, description, config}) => {
+        const script = {
+            title: (title && title !== '') ? title : uuid,
+            description: description || '',
             starting_url: starting_url,
-            config: config,
+            config: config || {},
             steps: steps,
             uuid: uuid,
             signature: generateSignature()
-        });
-        const scriptPath = path.join(__dirname, `../../../data/${title}.json`);
+        }
+        const scriptJSON = JSON.stringify(script);
+        const scriptPath = path.join(__dirname, `../../../data/${script.title}.json`);
         console.log(`Attempting to write file: ${scriptPath}`);
-        fs.writeFile(scriptPath, script, (err) => {
+        fs.writeFile(scriptPath, scriptJSON, (err) => {
             if (err) throw err;
             console.log(`${scriptPath} written successfully!`);
         });
     }
 
     return {
-        setTitle: setTitle,
-        getTitle: getTitle,
-        setDescription: setDescription,
-        getDescription: getDescription,
         addStep: addStep,
         save: save
     }

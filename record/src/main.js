@@ -68,11 +68,13 @@ const MainProcess = function () {
     ipcMain.on('stop-recording-message', (event, eventDto) => {
         // Prompt save
         console.log("Recording stopped");
-        // Destroy builder
-        destroyBuilder();
         // Turn off event listeners
         ipcMain.removeAllListeners('click-message');
         ipcMain.removeAllListeners('input-changed-message');
+    });
+
+    ipcMain.on('destroy-script-builder', (event, eventDto) => {
+        destroyBuilder();
     });
 
     ipcMain.on('reset-listener-window', (event, url) => {
@@ -82,7 +84,7 @@ const MainProcess = function () {
     });
 
     ipcMain.on('create-file', (event, eventDto) => {
-        builder.save();
+        builder.save(eventDto);
     });
 
     return {

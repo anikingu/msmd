@@ -17,6 +17,7 @@ function Console() {
     const urlSpan = React.createRef();
     const startUrl = React.createRef();
     const recordingButton = React.createRef();
+    const modal = document.getElementById('modal');
 
     const [webview, setWebview] = React.useState();
 
@@ -52,12 +53,21 @@ function Console() {
                 child.removeAttribute("disabled");
             })
             ipcRenderer.send('stop-recording-message');
+            showModal();
         }
+    }
+
+    const showModal = () => {
+        modal.style.display = 'block';
+    }
+
+    const hideModal = () => {
+        modal.style.removeProperty('display');
     }
 
     return (
         <div id="console">
-            <Modal />
+            <Modal hideModal={hideModal}/>
             <ControlPanel urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
             <div id="auxiliary-window" ></div>
         </div>
