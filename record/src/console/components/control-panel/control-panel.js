@@ -1,11 +1,20 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
+import mouseIcon from 'assets/mouse-solid.svg';
+import 
 
 function Step({step, index}) {
+
+    const resolveIcon = (step) => {
+        return mouseIcon;
+    }
+
     return (
         <div className="step">
-            Some Step {index}: {step.action}
+            <span className="step-number">{index+1}</span>
+            <img src={resolveIcon(step)} width={20} height={20}/>
+            <span>{step.description}</span>
         </div>
     );
 }

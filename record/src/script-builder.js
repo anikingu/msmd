@@ -27,6 +27,19 @@ const ScriptBuilder = (starting_url, window) => {
     console.log("Initializing new script builder")
     const uuid = 'testScript';
     let steps = [];
+
+    const resolveDescription = (type, target, action, input) => {
+        console.log(`Resolving description for ${type}, ${JSON.stringify(target)}, ${action}, ${input}`);
+        switch (type) {
+            case StepType.INTERACT:
+                switch (action){
+                    case "click":
+                        return `${action}ed ${target.relative_xpath}`;
+                }
+                break;
+        }
+        return `Generic ${action}`;
+    }
     
     const addStep = (type, target, action, input) => {
         // Verify that the type is a valid enum
@@ -37,7 +50,8 @@ const ScriptBuilder = (starting_url, window) => {
             type: type,
             target: target,
             action: action, 
-            input: input
+            input: input,
+            description: resolveDescription(type, target, action, input)
         };
         steps = [...steps, newStep];
         console.log("Sending steps: ")

@@ -1,4 +1,5 @@
 var fs = require('fs');
+const path = require('path');
 var nodeModules = {}
 fs.readdirSync('node_modules')
     .filter((x) => {
@@ -11,8 +12,12 @@ fs.readdirSync('node_modules')
 
 module.exports = {
     target: 'node',
+    resolve: {
+        alias: {
+            assets: path.resolve(__dirname, 'assets')
+        }
+    },
     externals: {
-        ...nodeModules,
-        
+        ...nodeModules, 
     }
 };

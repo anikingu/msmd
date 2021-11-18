@@ -32,7 +32,7 @@ module.exports = [
    *   }]
    * }
    */
-   {
+  {
     test: /\.(js|jsx)?$/,
     exclude: /node_modules/,
     use: {
@@ -43,4 +43,10 @@ module.exports = [
       }
     }
   },
+  {
+    test: /\.(jpe?g|gif|png|svg)$/, 
+    use: {
+      loader: 'file-loader'
+    }
+  }
 ];
