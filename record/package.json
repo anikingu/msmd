@@ -49,8 +49,8 @@
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
                 {
-                  "html": "./src/console/console.html",
-                  "js": "./src/console/console.js",
+                  "html": "./src/render/control/index.html",
+                  "js": "./src/render/control/index.js",
                   "name": "main_window"
                 }
               ]

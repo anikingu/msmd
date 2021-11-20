@@ -2,9 +2,9 @@ import path from "path";
 import "./event-register"
 
 
-const ListenerWindow = (
-    preload = "file:///" + path.resolve("./src/renderer/event-register.js"),
-    url = "file:///" + path.resolve("./src/renderer/new-window.html"),
+const ListenerWebview = (
+    preload = "file:///" + path.resolve("./src/render/webview/event-register.js"),
+    url = "file:///" + path.resolve("./src/render/webview/new-tab.html"),
     inspect = true,
     parentContainerId = "auxiliary-window"
 ) => {
@@ -57,4 +57,4 @@ const ListenerWindow = (
     }
 }
 
-export default ListenerWindow;
+export default ListenerWebview;

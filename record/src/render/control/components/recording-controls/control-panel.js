@@ -2,7 +2,6 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import mouseIcon from 'assets/mouse-solid.svg';
-import 
 
 function Step({step, index}) {
 

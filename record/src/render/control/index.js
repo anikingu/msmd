@@ -1,11 +1,11 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import './console.css';
+import './index.css';
 
-import ControlPanel from './components/control-panel/control-panel';
-import ListenerWindow from '../renderer/listener-window';
-import Modal from './components/modal/modal';
+import ControlPanel from './components/recording-controls/control-panel';
+import ListenerWebview from '../webview/listener-webview';
+import Modal from './components/modals/modal';
 
 window.onload = () => {
     document.getElementById('download-button').addEventListener('click', () => {
@@ -27,7 +27,7 @@ function Console() {
             const webviewProps = {
 
             };
-            setWebview(ListenerWindow());
+            setWebview(ListenerWebview());
         }, 1000);
     },[]);
 
