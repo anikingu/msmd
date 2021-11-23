@@ -22,7 +22,7 @@ const ListenerWebview = (
     webview.style.borderStyle = "ridge"
     webview.style.borderWidth = "5px";
     webview.style.width = "100% - 10px";
-    webview.style.height = "99%";
+    webview.style.height = "100%";
 
     console.log("Attaching webview");
     container.appendChild(webview);

@@ -2,6 +2,8 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import mouseIcon from 'assets/mouse-solid.svg';
+import sidebarToggle from 'assets/angle-double-right-solid.svg';
+import './sidebar.css';
 
 function Step({step, index}) {
 
@@ -18,8 +20,9 @@ function Step({step, index}) {
     );
 }
 
-function ControlPanel({urlSpan, startUrl, handleUrlSubmit, recordingButton, toggleRecording}) {
+function Sidebar({recordingButton, toggleRecording}) {
     const [steps, setSteps] = React.useState([]);
+    const [expanded, setExpanded] = React.useState(false);
 
     React.useEffect(() => {
         ipcRenderer.on("steps-updated", (event, args) => {
@@ -30,28 +33,32 @@ function ControlPanel({urlSpan, startUrl, handleUrlSubmit, recordingButton, togg
         }); 
     }, []);
 
+    const handleRetract = () => {
+        setExpanded(!expanded);
+    }
+
     return (
-        <div id="control-panel">
-            <div>
-                <h2>Recording Controls</h2>
-                <div>
-                    <span id="url-span" ref={urlSpan} onKeyPress={(event) => {if(event.key ===  "Enter") handleUrlSubmit()}}><input type="url" id="startUrl" ref={startUrl}/><button id="url-go" onClick={handleUrlSubmit}>Go</button></span>
-                    <br/>
+        <div id="sidebar" className={expanded ? "sidebar-expanded" : "sidebar-retracted"}>
+            <div className="sidebar-controls">
+                <div className={expanded ? "sidebar-controls-expanded" : "sidebar-controls-retracted"}>
                     <label htmlFor="checkbox">Record</label>
                     <input type="checkbox" id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
                     <button id="download-button">Download</button>
                 </div>
+                <h2 id="sidebar-steps-label" className={expanded ? "sidebar-steps-label-visible" : "sidebar-steps-label-hidden"}>Recording Steps</h2>
             </div>
-            <div>
-                <h2>Recording Steps</h2>
+            <hr/>
+            <div className="sidebar-steps">
                 <div>
                     {steps.map((step, i) => (
                         <Step step={step} index={i} key={i} />
                     ))}
                 </div>
             </div>
+            <hr/>
+            <span id="sidebar-toggle" className={expanded ? "sidebar-toggle-expanded" : "sidebar-toggle-retracted"} onClick={handleRetract}><img src={sidebarToggle} width="30" height="30" /></span>
         </div>
     );
 }
 
-export default ControlPanel;
+export default Sidebar;

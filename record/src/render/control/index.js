@@ -3,7 +3,8 @@ import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import './index.css';
 
-import ControlPanel from './components/recording-controls/control-panel';
+import BrowserControls from './components/browser-controls/browser-controls';
+import Sidebar from './components/recording-controls/sidebar';
 import ListenerWebview from '../webview/listener-webview';
 import Modal from './components/modals/modal';
 
@@ -68,8 +69,11 @@ function Console() {
     return (
         <div id="console">
             <Modal hideModal={hideModal}/>
-            <ControlPanel urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
-            <div id="auxiliary-window" ></div>
+            <BrowserControls urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
+            <div id='content'>
+                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
+                <div id="auxiliary-window" ></div>
+            </div>
         </div>
     );
 }
