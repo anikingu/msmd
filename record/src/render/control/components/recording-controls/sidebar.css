@@ -39,18 +39,19 @@
     width: 0;
 }
 
-.sidebar-steps {
+#sidebar-steps {
     height: calc(100% - 170px);
     min-height: 300px;
     margin: 5px 0 0 0;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
-.sidebar-steps::-webkit-scrollbar {
+#sidebar-steps::-webkit-scrollbar {
     width: 3px;
 }
 
-.sidebar-steps::-webkit-scrollbar-thumb {
+#sidebar-steps::-webkit-scrollbar-thumb {
     background: darkgray;
     border-radius: 3px;
 }

@@ -30,6 +30,8 @@ function Sidebar({recordingButton, toggleRecording}) {
             console.log("Received steps: " + steps.length)
             // console.log(steps);
             setSteps(steps);
+            const scrollbarSteps = document.getElementById('sidebar-steps');
+            scrollbarSteps.scrollTo(0, scrollbarSteps.scrollHeight);
         }); 
     }, []);
 
@@ -48,7 +50,7 @@ function Sidebar({recordingButton, toggleRecording}) {
                 <h2 id="sidebar-steps-label" className={expanded ? "sidebar-steps-label-visible" : "sidebar-steps-label-hidden"}>Recording Steps</h2>
             </div>
             <hr/>
-            <div className="sidebar-steps">
+            <div id="sidebar-steps">
                 <div>
                     {/* <Step step={{description: "Test description for the thing"}} index={0} expanded={expanded} /> */}
                     {steps.map((step, i) => (
