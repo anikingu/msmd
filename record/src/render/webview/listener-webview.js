@@ -1,5 +1,5 @@
 import path from "path";
-import "./event-register"
+import "./event-register";
 
 
 const ListenerWebview = (

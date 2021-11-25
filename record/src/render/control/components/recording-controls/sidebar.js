@@ -5,7 +5,7 @@ import mouseIcon from 'assets/mouse-solid.svg';
 import sidebarToggle from 'assets/angle-double-right-solid.svg';
 import './sidebar.css';
 
-function Step({step, index}) {
+function Step({step, index, expanded}) {
 
     const resolveIcon = (step) => {
         return mouseIcon;
@@ -13,9 +13,9 @@ function Step({step, index}) {
 
     return (
         <div className="step">
-            <span className="step-number">{index+1}</span>
-            <img src={resolveIcon(step)} width={20} height={20}/>
-            <span>{step.description}</span>
+            <div className="step-number">{index+1}</div>
+            <img src={resolveIcon(step)} className="step-icon" width={30} height={30}/>
+            <div className={`step-description ${expanded ? "step-description-visible" : "step-description-hidden"}`}>{step.description}</div>
         </div>
     );
 }
@@ -50,8 +50,9 @@ function Sidebar({recordingButton, toggleRecording}) {
             <hr/>
             <div className="sidebar-steps">
                 <div>
+                    {/* <Step step={{description: "Test description for the thing"}} index={0} expanded={expanded} /> */}
                     {steps.map((step, i) => (
-                        <Step step={step} index={i} key={i} />
+                        <Step step={step} index={i} expanded={expanded} key={i} />
                     ))}
                 </div>
             </div>
