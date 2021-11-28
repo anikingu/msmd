@@ -71,7 +71,7 @@ function Console() {
             <Modal hideModal={hideModal}/>
             <BrowserControls urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
             <div id='content'>
-                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} toggleRecording={toggleRecording}/>
+                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording}/>
                 <div id="auxiliary-window" ></div>
             </div>
         </div>

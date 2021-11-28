@@ -1,13 +1,13 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import mouseIcon from 'assets/mouse-solid.svg';
-import keyboardIcon from 'assets/keyboard-solid.svg';
-import verifyApiIcon from 'assets/server-solid.svg';
-import verifyNavigateIcon from 'assets/sitemap-solid.svg';
-import verifyGeneralIcon from 'assets/user-check-solid.svg';
-import sidebarToggle from 'assets/angle-double-right-solid.svg';
-import recordIcon from 'assets/record.svg';
+import MouseIcon from 'assets/mouse-solid.svg';
+import KeyboardIcon from 'assets/keyboard-solid.svg';
+import VerifyApiIcon from 'assets/server-solid.svg';
+import VerifyNavigateIcon from 'assets/sitemap-solid.svg';
+import VerifyGeneralIcon from 'assets/user-check-solid.svg';
+import SidebarToggle from 'assets/angle-double-right-solid.svg';
+import RecordIcon from 'assets/record.svg';
 import './sidebar.css';
 const { StepType, StepAction } = require('util/step-type');
 
@@ -17,21 +17,22 @@ function Step({step, index, expanded}) {
         const stepTypeAction = `${step.type}-${step.action}`;
         switch(stepTypeAction) {
             case `${StepType.INTERACT}-${StepAction.CLICK}`:
-                return mouseIcon;
+                return MouseIcon;
             case `${StepType.INTERACT}-${StepAction.CHANGE}`:
-                return keyboardIcon;                
+                return KeyboardIcon;                
         }
         switch(step.type) {
             case StepType.VERIFY:
-                return verifyGeneralIcon;
+                return VerifyGeneralIcon;
         }
-        return mouseIcon;
+        return MouseIcon;
     }
 
+    const Icon = resolveIcon(step)
     return (
         <div className="step">
             <div className="step-number">{index+1}</div>
-            <img src={resolveIcon(step)} className="step-icon" width={30} height={30}/>
+            <Icon className="step-icon" width="30" height="30"/>
             <div className={`step-description ${expanded ? "step-description-visible" : "step-description-hidden"}`}>{step.description}</div>
         </div>
     );
@@ -76,7 +77,7 @@ function Sidebar({recordingButton, toggleRecording}) {
                 </div>
             </div>
             <hr/>
-            <span id="sidebar-toggle" className={expanded ? "sidebar-toggle-expanded" : "sidebar-toggle-retracted"} onClick={handleRetract}><img src={sidebarToggle} width="30" height="30" /></span>
+            <span id="sidebar-toggle" className={expanded ? "sidebar-toggle-expanded" : "sidebar-toggle-retracted"} onClick={handleRetract}><SidebarToggle width="30" height="30" /></span>
         </div>
     );
 }
