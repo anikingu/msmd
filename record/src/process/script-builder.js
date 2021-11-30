@@ -10,9 +10,11 @@
 
     There should also be an enum for Step types contained in the module
 */
+
 const path = require('path');
 const fs = require('fs');
 const { ipcMain, BrowserWindow } = require('electron');
+const { StepType, StepAction } = require('util/step-type.js');
 
 
 const ScriptBuilder = (starting_url, window) => {
@@ -88,13 +90,6 @@ const ScriptBuilder = (starting_url, window) => {
     }
 }
 
-const StepType = {
-    INTERACT: 'interact',
-    VERIFY: 'verify',
-    CUSTOM: 'custom'
-}
-
 module.exports = {
-    ScriptBuilder,
-    StepType
+    ScriptBuilder
 };

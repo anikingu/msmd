@@ -2,12 +2,29 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import mouseIcon from 'assets/mouse-solid.svg';
+import keyboardIcon from 'assets/keyboard-solid.svg';
+import verifyApiIcon from 'assets/server-solid.svg';
+import verifyNavigateIcon from 'assets/sitemap-solid.svg';
+import verifyGeneralIcon from 'assets/user-check-solid.svg';
 import sidebarToggle from 'assets/angle-double-right-solid.svg';
+import recordIcon from 'assets/record.svg';
 import './sidebar.css';
+const { StepType, StepAction } = require('util/step-type');
 
 function Step({step, index, expanded}) {
 
     const resolveIcon = (step) => {
+        const stepTypeAction = `${step.type}-${step.action}`;
+        switch(stepTypeAction) {
+            case `${StepType.INTERACT}-${StepAction.CLICK}`:
+                return mouseIcon;
+            case `${StepType.INTERACT}-${StepAction.CHANGE}`:
+                return keyboardIcon;                
+        }
+        switch(step.type) {
+            case StepType.VERIFY:
+                return verifyGeneralIcon;
+        }
         return mouseIcon;
     }
 
