@@ -23,6 +23,11 @@
     height: 70px;
 }
 
+#recording-button {
+    max-height: 100%;
+    max-width: 100%;
+}
+
 #sidebar-steps-label {
     height: 30px;
     margin: 0;

@@ -51,6 +51,18 @@ module.exports = [
   },
   {
     test: /\.svg$/,
-    use: ['@svgr/webpack']
+    use: [
+      {
+        loader: '@svgr/webpack',
+        options: {
+          svgoConfig: {
+            plugins: {
+              cleanupIDs: false
+            }
+          }
+        }
+
+      }
+    ]
   }
 ];
