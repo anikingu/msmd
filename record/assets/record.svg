@@ -1,0 +1,53 @@
+<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="record">
+        <circle id="outer-circle" cx="200" cy="200" r="165" fill="white" stroke="black" stroke-width="10">
+            <animate attributeName="cx" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="200; 190; 200" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="outer-circle-pulse-x" />
+            <animate attributeName="cy" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="200; 190; 200" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="outer-circle-pulse-y" />
+            <animateTransform attributeName="transform" attributeType="XML" type="scale" dur="1s" begin="indefinite" calcMode="spline" values="1; 1.05; 1" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="outer-circle-pulse" />
+        </circle>
+        <path d="M100 200C
+                 100,150.7715 144.7715,100 200,100
+                 255.228,100 300,144.7715 300,200
+                 300,255.228 255.328,300 200,300
+                 144.7715,300 100,258.228 100,200Z" id="stop" fill="#E13A3A" stroke="black" stroke-width="5">
+            <animate attributeName="d" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="M100 200C
+                        100,150.7715 144.7715,100 200,100
+                        255.228,100 300,144.7715 300,200
+                        300,255.228 255.328,300 200,300
+                        144.7715,300 100,258.228 100,200Z;
+                        
+                        M140 140C
+                        200,140 200,140 260,140
+                        260,200 260,200 260,260
+                        200,260 200 260 140,260
+                        140,200 140,200 140,140Z; 
+                        
+                        M140 140C
+                        200,140 200,140 260,140
+                        260,200 260,200 260,260
+                        200,260 200 260 140,260
+                        140,200 140,200 140,140Z" keyTimes="0; 0.2; 1" keySplines="0.3,0.9,0.5,1; 0.3,0.9,0.5,1" fill="freeze" id="morph-to-stop-shape" />
+            <animate attributeName="fill" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="#E13A3A; #000000; #000000" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="morph-to-stop-fill" />
+            <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" begin="indefinite" calcMode="spline" values="-90 200 200; 30 200 200; 0 200 200" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="morph-to-stop-rotate" />
+            <animate attributeName="d" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="M140 140C
+                        200,140 200,140 260,140
+                        260,200 260,200 260,260
+                        200,260 200 260 140,260
+                        140,200 140,200 140,140Z; 
+                        
+                        M140 140C
+                        200,140 200,140 260,140
+                        260,200 260,200 260,260
+                        200,260 200 260 140,260
+                        140,200 140,200 140,140Z;
+                        
+                        M100 200C
+                        100,150.7715 144.7715,100 200,100
+                        255.228,100 300,144.7715 300,200
+                        300,255.228 255.328,300 200,300
+                        144.7715,300 100,258.228 100,200Z" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="morph-to-rec-shape" />
+            <animate attributeName="fill" attributeType="XML" dur="1s" begin="indefinite" calcMode="spline" values="#000000; #000000; #E13A3A" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="morph-to-rec-fill" />
+            <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" begin="indefinite" calcMode="spline" values="0 200 200; 30 200 200; -180 200 200" keyTimes="0; 0.2; 1" keySplines="0.5,0.9,0.5,1; 0.5,0.9,0.5,1" fill="freeze" id="morph-to-rec-rotate" />
+        </path>
+    </g>
+</svg>

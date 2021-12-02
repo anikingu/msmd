@@ -1,0 +1,29 @@
+#browser-controls {
+    grid-template-columns: 30px 30px 30px calc(100%-130px) 30px;
+}
+
+#browser-controls > .browser-controls-button {
+    display: inline-block;
+    padding: 5px;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+}
+
+#browser-controls > .browser-controls-button:hover {
+    background: rgb(245, 245, 245);
+}
+
+#url-span {
+    display: inline-block;
+    padding: 5px;
+    margin: 0;
+    width: calc(100% - 120px);
+    height: 30px;
+}
+
+#browser-url {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 200px;
+}

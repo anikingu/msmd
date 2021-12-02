@@ -14,7 +14,8 @@ module.exports = {
     target: 'node',
     resolve: {
         alias: {
-            assets: path.resolve(__dirname, 'assets')
+            assets: path.resolve(__dirname, 'assets'),
+            util: path.resolve(__dirname, 'src/util')
         }
     },
     externals: {

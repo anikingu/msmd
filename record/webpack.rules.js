@@ -44,9 +44,25 @@ module.exports = [
     }
   },
   {
-    test: /\.(jpe?g|gif|png|svg)$/, 
+    test: /\.(jpe?g|gif|png)$/, 
     use: {
       loader: 'file-loader'
     }
+  },
+  {
+    test: /\.svg$/,
+    use: [
+      {
+        loader: '@svgr/webpack',
+        options: {
+          svgoConfig: {
+            plugins: {
+              cleanupIDs: false
+            }
+          }
+        }
+
+      }
+    ]
   }
 ];

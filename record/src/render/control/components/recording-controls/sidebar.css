@@ -1,0 +1,140 @@
+#sidebar {
+    float: left;
+    height: 100%;
+    padding: 10px;
+    left: 0;
+    background-color: grey;
+    transition: 0.3s ease-in-out;
+}
+
+.sidebar-retracted {
+    width: 70px;
+}
+
+.sidebar-expanded {
+    width: 250px;
+}
+
+.sidebar-controls {
+    height: 100px;
+}
+
+.sidebar-controls-expanded, .sidebar-controls-retracted {
+    height: 70px;
+}
+
+#recording-button-wrapper {
+    max-height: 70px;
+    max-width: 70px;
+}
+
+#recording-button-wrapper:hover {
+    background-color: rgb(118, 118, 118);
+}
+
+#recording-button {
+    height: 100%;
+    width: 100%;
+}
+
+#sidebar-steps-label {
+    height: 30px;
+    margin: 0;
+    overflow: hidden;
+    word-break: break-all;
+    transition: 0.3s ease-in-out;
+}
+
+.sidebar-steps-label-visible {
+    width: 100%;
+}
+
+.sidebar-steps-label-hidden {
+    width: 0;
+}
+
+#sidebar-steps {
+    height: calc(100% - 170px);
+    min-height: 300px;
+    margin: 5px 0 0 0;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+#sidebar-steps::-webkit-scrollbar {
+    width: 3px;
+}
+
+#sidebar-steps::-webkit-scrollbar-thumb {
+    background: darkgray;
+    border-radius: 3px;
+}
+
+#sidebar-toggle:hover {
+    background: rgb(118, 118, 118);
+}
+
+.sidebar-toggle-retracted {
+    display: inherit;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    float: right;
+}
+
+.sidebar-toggle-expanded {
+    display: inherit;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    float: right;
+    transform: rotateZ(180deg);
+}
+
+.step {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    left: 0;
+}
+
+.step:hover {
+    background: rgb(118, 118, 118);
+}
+
+.step-number {
+    position: absolute;
+    height: 18px;
+    width: fit-content;
+    border-radius: 10px;
+    left: 0px;
+    top: 0px;
+    padding: 3px 5px;
+    background: red;
+    color: white;
+    font-size: 11px;
+}
+
+.step-icon {
+    margin: 5px 5px 5px 10px;
+}
+
+.step-description {
+    display: inline-block;
+    height: 20px;
+    margin: 10px 0;
+    overflow: hidden;
+    word-break: break-all;
+    transition: 0.3s ease-in-out;
+}
+
+.step-description-visible {
+    width: 180px;
+    padding: 0 10px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.step-description-hidden {
+    width: 0;
+}

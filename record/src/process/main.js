@@ -1,6 +1,7 @@
 const { app, BrowserView, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { ScriptBuilder, StepType } = require('./script-builder');
+const { ScriptBuilder } = require('./script-builder');
+const { StepType } = require('util/step-type');
 // require('./security-config');
 
 /* Used for hot reloading app during development*/
