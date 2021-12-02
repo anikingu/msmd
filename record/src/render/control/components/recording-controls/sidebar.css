@@ -23,9 +23,18 @@
     height: 70px;
 }
 
+#recording-button-wrapper {
+    max-height: 70px;
+    max-width: 70px;
+}
+
+#recording-button-wrapper:hover {
+    background-color: rgb(118, 118, 118);
+}
+
 #recording-button {
-    max-height: 100%;
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 #sidebar-steps-label {
@@ -62,7 +71,7 @@
 }
 
 #sidebar-toggle:hover {
-    background: rgb(121, 121, 121);
+    background: rgb(118, 118, 118);
 }
 
 .sidebar-toggle-retracted {
@@ -90,7 +99,7 @@
 }
 
 .step:hover {
-    background: rgb(121, 121, 121);
+    background: rgb(118, 118, 118);
 }
 
 .step-number {

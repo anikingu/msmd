@@ -61,7 +61,9 @@ function Sidebar({recordingButton, toggleRecording}) {
         <div id="sidebar" className={expanded ? "sidebar-expanded" : "sidebar-retracted"}>
             <div className="sidebar-controls">
                 <div className={expanded ? "sidebar-controls-expanded" : "sidebar-controls-retracted"}>
-                    <RecordIcon id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
+                    <div id="recording-button-wrapper">
+                        <RecordIcon id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
+                    </div>
                 </div>
                 <h2 id="sidebar-steps-label" className={expanded ? "sidebar-steps-label-visible" : "sidebar-steps-label-hidden"}>Recording Steps</h2>
             </div>
