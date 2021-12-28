@@ -65,9 +65,9 @@ function Sidebar({recordingButton, toggleRecording, toggleAddVerify}) {
                     <div id="recording-button-wrapper" className={expanded ? "recording-button-expanded" : "recording-button-retracted"}>
                         <RecordIcon id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
                     </div>
-                    <div id="verify-step-button-wrapper" className={expanded ? "verify-step-button-expanded" : "verify-step-button-retracted"}>
+                    <div id="directive-button-wrapper" className={expanded ? "directive-button-expanded" : "directive-button-retracted"}>
                         <div>
-                            <AddVerifyIcon id="verify-step-buttton" onClick={toggleAddVerify} />
+                            <AddVerifyIcon id="directive-buttton" onClick={toggleAddVerify} />
                         </div>
                     </div>
                 </div>

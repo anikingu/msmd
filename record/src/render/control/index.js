@@ -6,13 +6,12 @@ import './index.css';
 import BrowserControls from './components/browser-controls/browser-controls';
 import Sidebar from './components/recording-controls/sidebar';
 import ListenerWebview from '../webview/listener-webview';
-import Modal from './components/modals/modal';
+import { Modal, ModalType } from './components/modals/modal';
 
 window.onload = () => {
-    document.getElementById('download-button').addEventListener('click', () => {
-        ipcRenderer.send('create-file')
-    });
-}
+    /* Removing this onload function causes the event-register to attach to the main window in addition to the webview
+     * We do not want this behavior, so until we can come up with a good way to prevent it, LEAVE THIS BLOCK HERE */
+};
 
 function Console() {
     const urlSpan = React.createRef();
@@ -22,6 +21,7 @@ function Console() {
     
     const [recording, setRecording] = React.useState(false);
     const [webview, setWebview] = React.useState();
+    const [modalType, setModalType] = React.useState();
 
     // RecordIcon Animations
     const outerCirclePulseX = document.getElementById('record_svg__outer-circle-pulse-x');
@@ -84,7 +84,7 @@ function Console() {
                 child.removeAttribute("disabled");
             })
             ipcRenderer.send('stop-recording-message');
-            showModal();
+            showModal(ModalType.FINALIZE);
         }
     }
 
@@ -92,17 +92,19 @@ function Console() {
         console.log("Add verify");
     }
 
-    const showModal = () => {
+    const showModal = (type) => {
+        setModalType(type);
         modal.style.display = 'block';
     }
 
     const hideModal = () => {
+        setModalType(null);
         modal.style.removeProperty('display');
     }
 
     return (
         <div id="console">
-            <Modal hideModal={hideModal}/>
+            <Modal modalType={modalType} hideModal={hideModal}/>
             <BrowserControls urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
             <div id='content'>
                 <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording} toggleAddVerify={toggleAddVerify}/>

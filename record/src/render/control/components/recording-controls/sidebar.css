@@ -46,13 +46,13 @@
     width: 100%;
 }
 
-#verify-step-button-wrapper {
+#directive-button-wrapper {
     padding: 9px;
     offset-path: path('M-75,-35 A65,40 0 0,0 125,-35');
     transition: 0.3s ease-in-out;
 }
 
-#verify-step-button-wrapper > div {
+#directive-button-wrapper > div {
     background-color: black;
     border-width: 2px;
     border-color: black;
@@ -60,20 +60,20 @@
     padding: 1px
 }
 
-#verify-step-button-wrapper:hover {
+#directive-button-wrapper:hover {
     background-color: rgb(118, 118, 118);
 }
 
-.verify-step-button-expanded {
+.directive-button-expanded {
     height: 70px;
     width: 70px;
+    transform: rotateZ(90deg);
     offset-distance: 100%;
 }
 
-.verify-step-button-retracted {
+.directive-button-retracted {
     height: 50px;
     width: 50px;
-    transform: rotateZ(90deg);
     offset-distance: 50%
 }
 
