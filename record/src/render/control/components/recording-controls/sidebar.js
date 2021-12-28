@@ -1,13 +1,14 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import MouseIcon from 'assets/mouse-solid.svg';
+import AddVerifyIcon from 'assets/plus-circle-solid.svg';
 import KeyboardIcon from 'assets/keyboard-solid.svg';
-import VerifyApiIcon from 'assets/server-solid.svg';
-import VerifyNavigateIcon from 'assets/sitemap-solid.svg';
-import VerifyGeneralIcon from 'assets/user-check-solid.svg';
-import SidebarToggle from 'assets/angle-double-right-solid.svg';
+import MouseIcon from 'assets/mouse-solid.svg';
 import RecordIcon from 'assets/record.svg';
+import SidebarToggle from 'assets/angle-double-right-solid.svg';
+import VerifyApiIcon from 'assets/server-solid.svg';
+import VerifyGeneralIcon from 'assets/user-check-solid.svg';
+import VerifyNavigateIcon from 'assets/sitemap-solid.svg';
 import './sidebar.css';
 const { StepType, StepAction } = require('util/step-type');
 
@@ -38,7 +39,7 @@ function Step({step, index, expanded}) {
     );
 }
 
-function Sidebar({recordingButton, toggleRecording}) {
+function Sidebar({recordingButton, toggleRecording, toggleAddVerify}) {
     const [steps, setSteps] = React.useState([]);
     const [expanded, setExpanded] = React.useState(false);
 
@@ -61,8 +62,13 @@ function Sidebar({recordingButton, toggleRecording}) {
         <div id="sidebar" className={expanded ? "sidebar-expanded" : "sidebar-retracted"}>
             <div className="sidebar-controls">
                 <div className={expanded ? "sidebar-controls-expanded" : "sidebar-controls-retracted"}>
-                    <div id="recording-button-wrapper">
+                    <div id="recording-button-wrapper" className={expanded ? "recording-button-expanded" : "recording-button-retracted"}>
                         <RecordIcon id="recording-button" ref={recordingButton} onClick={toggleRecording}/>
+                    </div>
+                    <div id="verify-step-button-wrapper" className={expanded ? "verify-step-button-expanded" : "verify-step-button-retracted"}>
+                        <div>
+                            <AddVerifyIcon id="verify-step-buttton" onClick={toggleAddVerify} />
+                        </div>
                     </div>
                 </div>
                 <h2 id="sidebar-steps-label" className={expanded ? "sidebar-steps-label-visible" : "sidebar-steps-label-hidden"}>Recording Steps</h2>

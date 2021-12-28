@@ -24,8 +24,17 @@
 }
 
 #recording-button-wrapper {
-    max-height: 70px;
-    max-width: 70px;
+    transition: 0.3s ease-in-out;
+}
+
+.recording-button-expanded {
+    height: 70px;
+    width: 70px;
+}
+
+.recording-button-retracted {
+    height: 50px;
+    width: 50px;
 }
 
 #recording-button-wrapper:hover {
@@ -35,6 +44,37 @@
 #recording-button {
     height: 100%;
     width: 100%;
+}
+
+#verify-step-button-wrapper {
+    padding: 9px;
+    offset-path: path('M-75,-35 A65,40 0 0,0 125,-35');
+    transition: 0.3s ease-in-out;
+}
+
+#verify-step-button-wrapper > div {
+    background-color: black;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 100%;
+    padding: 1px
+}
+
+#verify-step-button-wrapper:hover {
+    background-color: rgb(118, 118, 118);
+}
+
+.verify-step-button-expanded {
+    height: 70px;
+    width: 70px;
+    offset-distance: 100%;
+}
+
+.verify-step-button-retracted {
+    height: 50px;
+    width: 50px;
+    transform: rotateZ(90deg);
+    offset-distance: 50%
 }
 
 #sidebar-steps-label {

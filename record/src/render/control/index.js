@@ -88,6 +88,10 @@ function Console() {
         }
     }
 
+    const toggleAddVerify = () => {
+        console.log("Add verify");
+    }
+
     const showModal = () => {
         modal.style.display = 'block';
     }
@@ -101,7 +105,7 @@ function Console() {
             <Modal hideModal={hideModal}/>
             <BrowserControls urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
             <div id='content'>
-                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording}/>
+                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording} toggleAddVerify={toggleAddVerify}/>
                 <div id="auxiliary-window" ></div>
             </div>
         </div>
