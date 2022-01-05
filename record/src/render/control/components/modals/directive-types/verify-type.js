@@ -1,27 +1,16 @@
 import * as React from 'react';
 import '../directive-modal.css';
 
-const DirectiveOption = ({optionName, selectedOption, setSelectedOption}) => {
-
-    const handleClickOption = () => {
-        setSelectedOption(optionName);
-    }
-
-    return (
-        <div className={`directive-option ${selectedOption == optionName ? 'directive-option-selected' : ''}`} onClick={handleClickOption}>
-            {optionName}
-        </div>
-    );
-}
+import DirectiveOption from './directive-option';
 
 function VerifyType() {
     const subtypes = ["NAVIGATION", "REQUEST", "RESPONSE", "API", "DATABASE", "DOM", "DOWNLOAD"];
-    const [subtype, setSubtype] = React.useState("NAVIGATION");
-    const [SubtypeDetails, setSubtypeDetails] = React.useState(VerifyDetailResolver[subtype]);
+    const [currentSubtype, setCurrentSubtype] = React.useState("NAVIGATION");
+    const [SubtypeDetail, setSubtypeDetail] = React.useState(VerifyDetailResolver[currentSubtype]);
     
     React.useEffect(() => {
-        setSubtypeDetails(VerifyDetailResolver[subtype]);
-    }, [subtype])
+        setSubtypeDetail(VerifyDetailResolver[currentSubtype]);
+    }, [currentSubtype])
 
     return (
         <div id='directive-subtype-div'>
@@ -30,13 +19,13 @@ function VerifyType() {
                     <DirectiveOption 
                         key={i}
                         optionName={subtypeName}  
-                        selectedOption={subtype}
-                        setSelectedOption={setSubtype}
+                        selectedOption={currentSubtype}
+                        setSelectedOption={setCurrentSubtype}
                     />
                 ))}
             </div>
             <div id='directive-details'>
-                {SubtypeDetails ?? ""}
+                {SubtypeDetail ?? ""}
             </div>
         </div>
     );
