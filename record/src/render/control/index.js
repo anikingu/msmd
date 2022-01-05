@@ -88,8 +88,9 @@ function Console() {
         }
     }
 
-    const toggleAddVerify = () => {
-        console.log("Add verify");
+    const toggleAddDirective = () => {
+        console.log("Adding directive");
+        showModal(ModalType.DIRECTIVE);
     }
 
     const showModal = (type) => {
@@ -107,7 +108,7 @@ function Console() {
             <Modal modalType={modalType} hideModal={hideModal}/>
             <BrowserControls urlSpan={urlSpan} startUrl={startUrl} handleUrlSubmit={handleUrlSubmit} />
             <div id='content'>
-                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording} toggleAddVerify={toggleAddVerify}/>
+                <Sidebar recordingButton={recordingButton} recordingButton={recordingButton} recording={recording} toggleRecording={toggleRecording} toggleAddDirective={toggleAddDirective}/>
                 <div id="auxiliary-window" ></div>
             </div>
         </div>

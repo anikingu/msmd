@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import AddVerifyIcon from 'assets/plus-circle-solid.svg';
+import AddDirectiveIcon from 'assets/plus-circle-solid.svg';
 import KeyboardIcon from 'assets/keyboard-solid.svg';
 import MouseIcon from 'assets/mouse-solid.svg';
 import RecordIcon from 'assets/record.svg';
@@ -39,7 +39,7 @@ function Step({step, index, expanded}) {
     );
 }
 
-function Sidebar({recordingButton, toggleRecording, toggleAddVerify}) {
+function Sidebar({recordingButton, toggleRecording, toggleAddDirective}) {
     const [steps, setSteps] = React.useState([]);
     const [expanded, setExpanded] = React.useState(false);
 
@@ -67,7 +67,7 @@ function Sidebar({recordingButton, toggleRecording, toggleAddVerify}) {
                     </div>
                     <div id="directive-button-wrapper" className={expanded ? "directive-button-expanded" : "directive-button-retracted"}>
                         <div>
-                            <AddVerifyIcon id="directive-buttton" onClick={toggleAddVerify} />
+                            <AddDirectiveIcon id="directive-buttton" onClick={toggleAddDirective} />
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,6 @@ function Sidebar({recordingButton, toggleRecording, toggleAddVerify}) {
             <hr/>
             <div id="sidebar-steps">
                 <div>
-                    {/* <Step step={{description: "Test description for the thing"}} index={0} expanded={expanded} /> */}
                     {steps.map((step, i) => (
                         <Step step={step} index={i} expanded={expanded} key={i} />
                     ))}

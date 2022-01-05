@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import './modal.css'
+import './modal.css';
 
 function FinalizeModal({hideModal}) {
     let scriptTitle;

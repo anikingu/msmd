@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import './modal.css'
+import './modal.css';
 
 import FinalizeModal from './finalize-modal';
+import DirectiveModal from './directive-modal';
 
 function Modal({modalType, hideModal}) {
 
@@ -16,11 +17,13 @@ function Modal({modalType, hideModal}) {
 }
 
 const ModalTypeResolver = {
-    "FINALIZE": FinalizeModal
+    "FINALIZE": FinalizeModal,
+    "DIRECTIVE": DirectiveModal
 };
 
 const ModalType = {
-    "FINALIZE": "FINALIZE"
+    FINALIZE: "FINALIZE",
+    DIRECTIVE: "DIRECTIVE"
 }
 
 
