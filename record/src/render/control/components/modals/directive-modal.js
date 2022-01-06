@@ -46,9 +46,11 @@ function DirectiveModal({hideModal}) {
                 </div>
                 {DirectiveType ?? ""}
             </div>
-            <button type='button' id='cancel-button' onClick={handleCancel}>Cancel</button>
-            <button type='button' id='create-button' onClick={handleCreateDirective}>Create</button>
-            <label htmlFor='create-another-checkbox'>Create Another?</label><input type='checkbox' id='create-another-checkbox' />
+            <div className='modal-buttons'>
+                <button type='button' id='cancel-button' onClick={handleCancel}>Cancel</button>
+                <button type='button' id='create-button' onClick={handleCreateDirective}>Create</button>
+                <label htmlFor='create-another-checkbox'>Create Another?</label><input type='checkbox' id='create-another-checkbox' />
+            </div>
         </div>
     )
 }

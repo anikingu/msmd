@@ -19,9 +19,9 @@ const ListenerWebview = (
     webview.setAttribute("preload", preload);
 
     //Styling that element
-    webview.style.borderStyle = "ridge"
-    webview.style.borderWidth = "5px";
-    webview.style.width = "100% - 10px";
+    webview.style.borderStyle = "inset"
+    webview.style.borderWidth = "3px";
+    webview.style.width = "100% - 6px";
     webview.style.height = "100%";
 
     console.log("Attaching webview");

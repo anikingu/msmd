@@ -13,8 +13,8 @@ function VerifyType() {
     }, [currentSubtype])
 
     return (
-        <div id='directive-subtype-div'>
-            <div id='directive-subtype-section'>
+        <div id='directive-subtype-section'>
+            <div id='directive-subtypes'>
                 {subtypes.map((subtypeName, i) => (
                     <DirectiveOption 
                         key={i}

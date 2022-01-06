@@ -44,6 +44,11 @@
     display: inline;
     margin: 5px;
     padding: 5px;
+    vertical-align: middle;
+}
+
+.modal-buttons label {
+    margin: 0px;
 }
 
 span.caret {

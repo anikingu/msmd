@@ -1,3 +1,46 @@
+#directive-form {
+    display: grid;
+    height: 400px;
+    border-width: 1px;
+    border-radius: 2px;
+    border-style: solid;
+
+    grid-template-columns: [col1] max-content [col2] auto;
+}
+
+#directive-type-section {
+    grid-column: col1;
+    height: 100%;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    border-color: darkgrey;
+}
+
+#directive-subtype-section {
+    grid-column: col2;
+    height: 100%;
+
+    /* Unfortunately Chromium still doesn't fully support css-grid, so this is how we'll have to create subgrids for now */
+    display: grid;
+    grid-template-columns: [col1] 135px [col2] auto;
+}
+
+#directive-subtypes {
+    grid-column: col1;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    border-color: darkgrey;
+}
+
+#directive-details {
+    grid-column: col2;
+    height: 100%;
+}
+
+.directive-option {
+    padding: 5px;
+}
+
 .directive-option-selected {
     background-color: rgba(130, 130, 255, 0.61);
 }

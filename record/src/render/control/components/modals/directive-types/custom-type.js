@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function CustomType() {
     return (
-        <div id='directive-subtype-div'>
-            <div id='directive-details'>
+        <div id='directive-subtype-section'>
+            <div id='directive-details-section'>
 
             </div>
         </div>
