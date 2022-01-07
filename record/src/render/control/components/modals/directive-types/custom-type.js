@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function CustomType() {
+function CustomType({setSubtypeDetails}) {
     return (
         <div id='directive-subtype-section'>
             <div id='directive-details-section'>

@@ -29,6 +29,10 @@
     display: block;
 }
 
+.modal-field label {
+    font-size: smaller;
+}
+
 .modal-field input, .modal-field textarea {
     box-sizing: border-box;
     width: 100%;

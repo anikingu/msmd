@@ -35,6 +35,7 @@
 #directive-details {
     grid-column: col2;
     height: 100%;
+    padding: 5px;
 }
 
 .directive-option {

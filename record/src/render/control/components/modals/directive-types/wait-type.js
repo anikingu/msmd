@@ -1,10 +1,18 @@
 import * as React from 'react';
 import DirectiveOption from './directive-option';
 
-function WaitType() {
+function WaitType({currentSubtype, setCurrentSubtype, setSubtypeDetails}) {
 
     const subtypes = ["WAIT UNTIL", "WAIT INTERVAL"];
-    const [currentSubtype, setCurrentSubtype] = React.useState("WAIT UNTIL");
+    React.useEffect(() => {
+        setCurrentSubtype("WAIT UNTIL");
+    }, [])
+
+    const WaitDetailResolver = {
+        "WAIT UNTIL": <NotYetImplemented />,
+        "WAIT INTERVAL": <NotYetImplemented />
+    }
+
     const [SubtypeDetail, setSubtypeDetail] = React.useState(WaitDetailResolver[currentSubtype]);
 
     React.useEffect(() => {
@@ -36,11 +44,6 @@ const NotYetImplemented = () => {
             {"Not yet implemented"}
         </div>
     )
-}
-
-const WaitDetailResolver = {
-    "WAIT UNTIL": <NotYetImplemented />,
-    "WAIT INTERVAL": <NotYetImplemented />
 }
 
 export default WaitType;

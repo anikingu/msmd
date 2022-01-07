@@ -13,11 +13,27 @@ function DirectiveModal({hideModal}) {
 
     const directiveTypes = ["VERIFY", "WAIT", "CUSTOM"];
     const [currentDirectiveType, setCurrentDirectiveType] = React.useState("VERIFY");
+    const [currentSubtype, setCurrentSubtype] = React.useState(null);
+    const [subtypeDetails, setSubtypeDetails] = React.useState({});
+    const [detailsCallback, setDetailsCallback] = React.useState();
+
+    const subtypeProps = {
+        currentSubtype: currentSubtype,
+        setCurrentSubtype: setCurrentSubtype,
+        setSubtypeDetails: setSubtypeDetails,
+        setDetailsCallback: setDetailsCallback
+    }
+    const DirectiveTypeResolver = {
+        "VERIFY": <VerifyType {...subtypeProps} />,
+        "WAIT": <WaitType {...subtypeProps} />,
+        "CUSTOM": <CustomType {...subtypeProps} />
+    }
+
     const [DirectiveType, setDirectiveType] = React.useState(DirectiveTypeResolver[currentDirectiveType]);
 
     React.useEffect(() => {
         setDirectiveType(DirectiveTypeResolver[currentDirectiveType]);
-    }, [currentDirectiveType])
+    }, [currentDirectiveType, currentSubtype]);
 
     const handleCancel = () => {
         hideModal();
@@ -25,9 +41,8 @@ function DirectiveModal({hideModal}) {
 
     const handleCreateDirective = () => {
         console.log("Creating Directive");
-    }
-
-    const clearFields = () => {
+        console.log(subtypeDetails);
+        detailsCallback.clearFields();
     }
 
     return (
@@ -53,12 +68,6 @@ function DirectiveModal({hideModal}) {
             </div>
         </div>
     )
-}
-
-const DirectiveTypeResolver = {
-    "VERIFY": <VerifyType />,
-    "WAIT": <WaitType />,
-    "CUSTOM": <CustomType />
 }
 
 export default DirectiveModal;
