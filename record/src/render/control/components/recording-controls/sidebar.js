@@ -2,6 +2,7 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import AddDirectiveIcon from 'assets/plus-circle-solid.svg';
+import DefaultStepIcon from 'assets/user-check-solid.svg';
 import KeyboardIcon from 'assets/keyboard-solid.svg';
 import MouseIcon from 'assets/mouse-solid.svg';
 import RecordIcon from 'assets/record.svg';
@@ -10,23 +11,23 @@ import VerifyApiIcon from 'assets/server-solid.svg';
 import VerifyGeneralIcon from 'assets/user-check-solid.svg';
 import VerifyNavigateIcon from 'assets/sitemap-solid.svg';
 import './sidebar.css';
-const { StepType, StepAction } = require('util/step-type');
+const { InteractionAction } = require('util/step-type');
 
 function Step({step, index, expanded}) {
 
     const resolveIcon = (step) => {
-        const stepTypeAction = `${step.type}-${step.action}`;
-        switch(stepTypeAction) {
-            case `${StepType.INTERACT}-${StepAction.CLICK}`:
-                return MouseIcon;
-            case `${StepType.INTERACT}-${StepAction.CHANGE}`:
-                return KeyboardIcon;                
+        let interactionIcon
+        if (step.interaction) {
+            switch(step.interaction.action) {
+                case InteractionAction.CLICK:
+                    interactionIcon = MouseIcon;
+                    break;
+                case InteractionAction.CHANGE:
+                    interactionIcon = KeyboardIcon;
+            }
         }
-        switch(step.type) {
-            case StepType.VERIFY:
-                return VerifyGeneralIcon;
-        }
-        return MouseIcon;
+
+        return interactionIcon ?? DefaultStepIcon;
     }
 
     const Icon = resolveIcon(step)

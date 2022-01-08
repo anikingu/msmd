@@ -14,7 +14,7 @@
 const path = require('path');
 const fs = require('fs');
 const { ipcMain, BrowserWindow } = require('electron');
-const { StepType, StepAction } = require('util/step-type.js');
+const { InteractionAction } = require('util/step-type.js');
 
 
 const ScriptBuilder = (starting_url, window) => {
@@ -30,30 +30,27 @@ const ScriptBuilder = (starting_url, window) => {
     const uuid = 'testScript';
     let steps = [];
 
-    const resolveDescription = (type, target, action, input) => {
-        console.log(`Resolving description for ${type}, ${JSON.stringify(target)}, ${action}, ${input}`);
-        switch (type) {
-            case StepType.INTERACT:
-                switch (action){
-                    case "click":
-                        return `${action}ed ${target.relative_xpath}`;
-                }
-                break;
+    const resolveDescription = (interaction, directive) => {
+        console.log(`Resolving description for interaction ${JSON.stringify(interaction)}, directive ${JSON.stringify(directive)}`);
+        let interactionDescription;
+        if(interaction) {
+            switch (interaction.action){
+                case InteractionAction.CLICK:
+                    interactionDescription = `${interaction.action}ed ${interaction.target.relative_xpath}`;
+                    break;
+                case InteractionAction.CHANGE:
+                    interactionDescription = `${interaction.action}d ${interaction.target.relative_xpath} to '${interaction.target.value}'`
+                    break;
+            }
         }
-        return `Generic ${action}`;
+        return interactionDescription ?? `Generic step`;
     }
     
-    const addStep = (type, target, action, input) => {
-        // Verify that the type is a valid enum
-        if(!Object.values(StepType).includes(type)) {
-            throw Error(`Step type ${type} is invalid. Step not added.`);
-        }
+    const addStep = (interaction, directive) => {
         const newStep = {
-            type: type,
-            target: target,
-            action: action, 
-            input: input,
-            description: resolveDescription(type, target, action, input)
+            interaction: interaction,
+            directive: directive,
+            description: resolveDescription(interaction, directive)
         };
         steps = [...steps, newStep];
         console.log("Sending steps: ")

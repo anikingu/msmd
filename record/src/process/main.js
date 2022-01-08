@@ -2,6 +2,7 @@ const { app, BrowserView, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { ScriptBuilder } = require('./script-builder');
 const { StepType } = require('util/step-type');
+const { InteractionAction } = require('../util/step-type');
 // require('./security-config');
 
 /* Used for hot reloading app during development*/
@@ -56,13 +57,13 @@ const MainProcess = function () {
         ipcMain.on('click-message', (event, eventDto) => {
             console.log('Received message');
             console.log(eventDto);
-            builder.addStep(StepType.INTERACT, eventDto, 'click');
+            builder.addStep(StepType.INTERACTION(eventDto, InteractionAction.CLICK));
         });
 
         ipcMain.on('input-changed-message', (event, eventDto) => {
             console.log('Input Received');
             console.log(eventDto);
-            builder.addStep(StepType.INTERACT, eventDto, "change");
+            builder.addStep(StepType.INTERACTION(eventDto, InteractionAction.CHANGE));
         });
     });
 
