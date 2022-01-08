@@ -7,7 +7,7 @@ const InteractionStep = (target, action, input) => {
     return interactive;
 }
 
-const DirectiveStep = (type, subtype, detail) => {
+const DirectiveStep = ({type, subtype, detail}) => {
     const directive = {
         type: type,
         subtype: subtype,

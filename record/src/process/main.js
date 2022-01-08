@@ -65,6 +65,11 @@ const MainProcess = function () {
             console.log(eventDto);
             builder.addStep(StepType.INTERACTION(eventDto, InteractionAction.CHANGE));
         });
+        ipcMain.on('directive-message', (event, eventDto) => {
+            console.log('Directive Received');
+            console.log(eventDto);
+            builder.addStep(undefined, StepType.DIRECTIVE(eventDto));
+        })
     });
 
     ipcMain.on('stop-recording-message', (event, eventDto) => {
@@ -73,6 +78,7 @@ const MainProcess = function () {
         // Turn off event listeners
         ipcMain.removeAllListeners('click-message');
         ipcMain.removeAllListeners('input-changed-message');
+        ipcMain.removeAllListeners('directive-message');
     });
 
     ipcMain.on('destroy-script-builder', (event, eventDto) => {

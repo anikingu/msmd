@@ -16,6 +16,7 @@ function DirectiveModal({hideModal}) {
     const [currentSubtype, setCurrentSubtype] = React.useState(null);
     const [subtypeDetails, setSubtypeDetails] = React.useState({});
     const [detailsCallback, setDetailsCallback] = React.useState();
+    const [createAnother, setCreateAnother] = React.useState(false);
 
     const subtypeProps = {
         currentSubtype: currentSubtype,
@@ -40,9 +41,19 @@ function DirectiveModal({hideModal}) {
     }
 
     const handleCreateDirective = () => {
+        const directiveDto = {
+            type: currentDirectiveType,
+            subtype: currentSubtype,
+            detail: subtypeDetails
+        }
         console.log("Creating Directive");
-        console.log(subtypeDetails);
+        console.log(directiveDto);
+        ipcRenderer.send('directive-message', directiveDto);
         detailsCallback.clearFields();
+        setSubtypeDetails({});
+        if (!createAnother) {
+            hideModal();
+        }
     }
 
     return (
@@ -64,7 +75,8 @@ function DirectiveModal({hideModal}) {
             <div className='modal-buttons'>
                 <button type='button' id='cancel-button' onClick={handleCancel}>Cancel</button>
                 <button type='button' id='create-button' onClick={handleCreateDirective}>Create</button>
-                <label htmlFor='create-another-checkbox'>Create Another?</label><input type='checkbox' id='create-another-checkbox' />
+                <label htmlFor='create-another-checkbox'>Create Another?</label>
+                <input type='checkbox' id='create-another-checkbox' onClick={() => setCreateAnother(!createAnother)} defaultChecked={createAnother}/>
             </div>
         </div>
     )
