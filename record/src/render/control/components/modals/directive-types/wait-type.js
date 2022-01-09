@@ -6,7 +6,7 @@ function WaitType({currentSubtype, setCurrentSubtype, setSubtypeDetails}) {
     const subtypes = ["WAIT UNTIL", "WAIT INTERVAL"];
     React.useEffect(() => {
         setCurrentSubtype("WAIT UNTIL");
-    }, [])
+    }, []);
 
     const WaitDetailResolver = {
         "WAIT UNTIL": <NotYetImplemented />,
@@ -17,7 +17,7 @@ function WaitType({currentSubtype, setCurrentSubtype, setSubtypeDetails}) {
 
     React.useEffect(() => {
         setSubtypeDetail(WaitDetailResolver[currentSubtype]);
-    }, [currentSubtype])
+    }, [currentSubtype]);
 
     return (
         <div id='directive-subtype-section'>

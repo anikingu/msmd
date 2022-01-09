@@ -36,14 +36,35 @@ const ScriptBuilder = (starting_url, window) => {
         if(interaction) {
             switch (interaction.action){
                 case InteractionAction.CLICK:
-                    interactionDescription = `${interaction.action}ed ${interaction.target.relative_xpath}`;
+                    interactionDescription = `${interaction.action} ${interaction.target.relative_xpath}`;
                     break;
                 case InteractionAction.CHANGE:
-                    interactionDescription = `${interaction.action}d ${interaction.target.relative_xpath} to '${interaction.target.value}'`
+                    interactionDescription = `${interaction.action} ${interaction.target.relative_xpath} value to '${interaction.target.value}'`;
                     break;
             }
         }
-        return interactionDescription ?? `Generic step`;
+        let directiveDescription;
+        if(directive) {
+            switch(directive.type) {
+                case "VERIFY":
+                    directiveDescription = `verify ${directive.subtype.toLowerCase()}, detail: ${JSON.stringify(directive.detail)}`;
+                    break;
+                case "WAIT":
+                    directiveDescription = `${directive.subtype.toLowerCase()}, detail: ${JSON.stringify(directive.detail)}`;
+                    break;
+                case "CUSTOM":
+                    directiveDescription = `run custom javascript, detail: ${JSON.stringify(directive.detail)}`;
+                    break;
+            }
+        }
+
+        // If there's a description for an interaction or a directive, add it to the return value.
+        // If both exist, concatinate them.
+        // If neither exists, return "Generic Step"
+        const description = (interactionDescription || directiveDescription) ?
+            `${interactionDescription ? interactionDescription + ' ' : ''}${directiveDescription ?? ''}` :
+            'Generic step';
+        return description;
     }
     
     const addStep = (interaction, directive) => {

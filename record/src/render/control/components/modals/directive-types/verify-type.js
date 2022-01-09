@@ -7,7 +7,7 @@ const VerifyType = ({currentSubtype, setCurrentSubtype, setSubtypeDetails, setDe
     const subtypes = ["NAVIGATION", "REQUEST", "RESPONSE", "API", "DATABASE", "DOM", "DOWNLOAD"];
     React.useEffect(() => {
         setCurrentSubtype("NAVIGATION");
-    }, [])
+    }, []);
 
     const detailProps = {
         setSubtypeDetails: setSubtypeDetails,
@@ -26,7 +26,7 @@ const VerifyType = ({currentSubtype, setCurrentSubtype, setSubtypeDetails, setDe
     
     React.useEffect(() => {
         setSubtypeDetail(VerifyDetailResolver[currentSubtype]);
-    }, [currentSubtype])
+    }, [currentSubtype]);
 
     return (
         <div id='directive-subtype-section'>
