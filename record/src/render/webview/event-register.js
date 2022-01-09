@@ -1,7 +1,14 @@
+const path  = require("path");
 const { ipcRenderer } = require('electron');
 
 console.log("Running preload")
 window.onload = () => {
+
+    const NewTabPath = "file://" + path.resolve("./src/render/webview/new-tab.html");
+    if(document.location.href != NewTabPath) {
+        ipcRenderer.send('update-url', document.location.href);
+    }
+
     const deriveXpath = (path) => {
         let fullXpathArray = [];
         let xpathArray = [];

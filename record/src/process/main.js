@@ -91,6 +91,11 @@ const MainProcess = function () {
         createAuxiliaryWindow(url);
     });
 
+    ipcMain.on('update-url', (event, url) => {
+        console.log(`Updating url to ${url}`);
+        mainWindow.webContents.send('update-url', url);
+    });
+
     ipcMain.on('create-file', (event, eventDto) => {
         builder.save(eventDto);
     });
